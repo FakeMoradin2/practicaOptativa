@@ -1,0 +1,90 @@
+// ENTREGA 3 - EVIDENCIAS: 10 INDICES Y 5 EXPLAIN
+// Ejecutar en mongosh con load('/ruta/05_solo_indices_y_5_explain.txt')
+// SOLO LECTURA: no crea, elimina ni modifica indices o documentos.
+// Captura 1: lista de indices (10/10).
+// Capturas 2-6: una por cada consulta explain, con plan y estadisticas.
+
+(function () {
+  const base = db.getSiblingDB('ecommerce_nosql');
+  const esperados = [
+    ['clientes', 'idx_cliente_correo_hash_unico'],
+    ['productos', 'idx_producto_sku_unico'],
+    ['productos', 'idx_producto_texto'],
+    ['productos', 'idx_producto_categoria_precio'],
+    ['productos', 'idx_producto_precio_activo'],
+    ['pedidos', 'idx_pedido_cliente_fecha'],
+    ['pagos', 'idx_pago_referencia_unica'],
+    ['pagos', 'idx_pago_pedido_id'],
+    ['inventario', 'idx_inventario_producto_unico'],
+    ['auditoria', 'idx_auditoria_coleccion_fecha']
+  ];
+
+  print('\n========== PARTE 1: VERIFICACION DE LOS 10 INDICES ==========');
+  print('Base de datos: ' + base.getName());
+  const nombres = [...new Set(esperados.map(x => x[0]))];
+  const indicesPorColeccion = {};
+  for (const nombre of nombres) {
+    indicesPorColeccion[nombre] = base.getCollection(nombre).getIndexes();
+  }
+  let encontrados = 0;
+  esperados.forEach(([coleccion, nombre], i) => {
+    const indice = indicesPorColeccion[coleccion].find(x => x.name === nombre);
+    if (indice) encontrados++;
+    print((i + 1) + '/10 ' + coleccion + ' | ' + nombre + ' | ' + (indice ? 'OK' : 'NO ENCONTRADO'));
+    if (indice) {
+      print('     Campos: ' + EJSON.stringify(indice.key));
+      if (indice.unique) print('     Propiedad: unique=true');
+      if (indice.partialFilterExpression) print('     Filtro parcial: ' + EJSON.stringify(indice.partialFilterExpression));
+    }
+  });
+  print('\nINDICES DEL EJERCICIO VERIFICADOS: ' + encontrados + '/10');
+  print('Nota: los indices _id_ son automaticos y no cuentan entre los 10.');
+  if (encontrados !== 10) {
+    print('ATENCION: faltan indices. Detenemos las pruebas hasta revisar su creacion.');
+    return;
+  }
+
+  function recopilarPlan(nodo, etapas, indices, visitados) {
+    if (!nodo || typeof nodo !== 'object' || visitados.has(nodo)) return;
+    visitados.add(nodo);
+    if (typeof nodo.stage === 'string') etapas.push(nodo.stage);
+    if (typeof nodo.indexName === 'string') indices.push(nodo.indexName);
+    for (const k of Object.keys(nodo)) {
+      const hijo = nodo[k];
+      if (hijo && typeof hijo === 'object') {
+        if (Array.isArray(hijo)) hijo.forEach(x => recopilarPlan(x, etapas, indices, visitados));
+        else recopilarPlan(hijo, etapas, indices, visitados);
+      }
+    }
+  }
+  function explicar(numero, titulo, cursor) {
+    const r = cursor.explain('executionStats');
+    const etapas = [], indices = [];
+    recopilarPlan(r.queryPlanner && r.queryPlanner.winningPlan, etapas, indices, new Set());
+    const estadisticas = r.executionStats || {};
+    print('\n========== EXPLAIN ' + numero + '/5: ' + titulo + ' ==========');
+    print('Etapas: ' + ([...new Set(etapas)].join(' -> ') || 'consultar winningPlan')); 
+    print('Indices mencionados: ' + ([...new Set(indices)].join(', ') || 'ninguno en el plan ganador'));
+    print('nReturned: ' + estadisticas.nReturned);
+    print('totalKeysExamined: ' + estadisticas.totalKeysExamined);
+    print('totalDocsExamined: ' + estadisticas.totalDocsExamined);
+    print('Interpretacion: ' + (etapas.includes('IXSCAN') ? 'IXSCAN (uso de indice)' : etapas.includes('COLLSCAN') ? 'COLLSCAN (escaneo de coleccion)' : 'revisar plan, puede utilizar otros operadores'));
+  }
+
+  print('\n========== PARTE 2: CINCO CONSULTAS EXPLAIN ==========');
+  print('MongoDB elige el plan de ejecucion; no se utiliza hint().');
+  const prod = base.productos.findOne({sku: {$exists: true}}, {sku: 1, categoria: 1});
+  const pedido = base.pedidos.findOne({cliente_id: {$exists: true}}, {cliente_id: 1});
+  const pago = base.pagos.findOne({referencia: {$exists: true}}, {referencia: 1});
+  const inventario = base.inventario.findOne({producto_id: {$exists: true}}, {producto_id: 1});
+  if (!prod || !pedido || !pago || !inventario) {
+    print('ERROR: faltan datos de ejemplo en productos, pedidos, pagos o inventario.');
+    return;
+  }
+  explicar(1, 'Buscar producto por SKU', base.productos.find({sku: prod.sku}));
+  explicar(2, 'Productos por categoria y precio', base.productos.find({categoria: prod.categoria}).sort({precio: 1}));
+  explicar(3, 'Pedidos por cliente y fecha', base.pedidos.find({cliente_id: pedido.cliente_id}).sort({fecha_pedido: -1}));
+  explicar(4, 'Buscar pago por referencia', base.pagos.find({referencia: pago.referencia}));
+  explicar(5, 'Buscar inventario por producto', base.inventario.find({producto_id: inventario.producto_id}));
+  print('\n========== FIN: 10 INDICES + 5 EXPLAIN ==========');
+})();

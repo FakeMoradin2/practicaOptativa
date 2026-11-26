@@ -1,0 +1,106 @@
+ENTREGA 3 - MONGODB ATLAS - CODIGO DE LOS 5 DATABASE TRIGGERS
+Base de datos: ecommerce_nosql
+
+IMPORTANTE:
+- Estas funciones se pegan INDIVIDUALMENTE en el editor Function de cada Database Trigger en MongoDB Atlas.
+- NO pegar este TXT completo dentro de mongosh: son funciones de Atlas App Services.
+- Estos triggers escriben mensajes en los logs de Atlas; NO modifican las colecciones.
+- Seleccionar el cluster actual, Watch Against: Collection, Event Type: Function.
+- Document Preimage: desactivado en los 5.
+
+============================================================
+TRIGGER 1 - trg_nuevo_pedido
+Collection: pedidos
+Operation Type: Insert
+Full Document: activado
+============================================================
+exports = async function(changeEvent) {
+  const pedido = changeEvent.fullDocument;
+
+  console.log("TRIGGER: Nuevo pedido detectado");
+  console.log("Pedido ID: " + changeEvent.documentKey._id);
+  console.log("Estado: " + pedido.estado);
+  console.log("Total: " + pedido.total);
+};
+
+============================================================
+TRIGGER 2 - trg_cambio_estado_pedido
+Collection: pedidos
+Operation Type: Update
+Full Document: desactivado
+============================================================
+exports = async function(changeEvent) {
+  const cambios = changeEvent.updateDescription?.updatedFields || {};
+
+  if (Object.prototype.hasOwnProperty.call(cambios, "estado")) {
+    console.log("TRIGGER: Cambio de estado de pedido");
+    console.log("Pedido ID: " + changeEvent.documentKey._id);
+    console.log("Nuevo estado: " + cambios.estado);
+  }
+};
+
+============================================================
+TRIGGER 3 - trg_nuevo_pago
+Collection: pagos
+Operation Type: Insert
+Full Document: activado
+============================================================
+exports = async function(changeEvent) {
+  const pago = changeEvent.fullDocument;
+
+  console.log("TRIGGER: Nuevo pago registrado");
+  console.log("Pago ID: " + changeEvent.documentKey._id);
+  console.log("Referencia: " + pago.referencia);
+  console.log("Estado: " + pago.estado);
+};
+
+============================================================
+TRIGGER 4 - trg_cambio_inventario
+Collection: inventario
+Operation Type: Update
+Full Document: desactivado
+============================================================
+exports = async function(changeEvent) {
+  const cambios = changeEvent.updateDescription?.updatedFields || {};
+
+  const camposInventario = ["existencias", "reservadas", "stock_minimo"];
+  const modificados = camposInventario.filter(campo =>
+    Object.prototype.hasOwnProperty.call(cambios, campo)
+  );
+
+  if (modificados.length > 0) {
+    console.log("TRIGGER: Inventario actualizado");
+    console.log("Documento ID: " + changeEvent.documentKey._id);
+    console.log("Campos modificados: " + JSON.stringify(modificados));
+    console.log("Valores nuevos: " + JSON.stringify(cambios));
+  }
+};
+
+============================================================
+TRIGGER 5 - trg_cambio_producto
+Collection: productos
+Operation Type: Update
+Full Document: desactivado
+============================================================
+exports = async function(changeEvent) {
+  const cambios = changeEvent.updateDescription?.updatedFields || {};
+
+  const camposProducto = ["nombre", "precio", "categoria", "activo"];
+  const modificados = camposProducto.filter(campo =>
+    Object.prototype.hasOwnProperty.call(cambios, campo)
+  );
+
+  if (modificados.length > 0) {
+    console.log("TRIGGER: Producto actualizado");
+    console.log("Producto ID: " + changeEvent.documentKey._id);
+    console.log("Campos modificados: " + JSON.stringify(modificados));
+    console.log("Valores nuevos: " + JSON.stringify(cambios));
+  }
+};
+
+============================================================
+EVIDENCIA PARA LA ENTREGA
+- Captura de los 5 triggers habilitados en Atlas.
+- Capturas de los logs posteriores a probar cada trigger.
+- Guardar este archivo en Entrega 3 / Triggers.
+============================================================

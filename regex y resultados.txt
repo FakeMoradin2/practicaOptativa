@@ -1,0 +1,1834 @@
+ECOMMERCE NoSQL - RESULTADOS REGEX
+Base: ecommerce_nosql
+Fecha: 2026-11-26T02:27:33.096Z
+Cada consulta muestra hasta 10 documentos de ejemplo; no implica que ese sea el total.
+
+============================================================
+[REGEX 01] Productos cuyo nombre inicia con A
+Coleccion: productos
+Consulta: db.productos.find({
+  "nombre": {
+    "$regex": "^A",
+    "$options": "i"
+  }
+}, {
+  "_id": 1,
+  "sku": 1,
+  "nombre": 1,
+  "categoria": 1,
+  "precio": 1,
+  "activo": 1
+}).limit(10)
+Estado: OK
+Muestras devueltas: 1
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e90"
+    },
+    "sku": "PROD-005",
+    "nombre": "Audifonos Bluetooth",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "850.00"
+    },
+    "activo": true
+  }
+]
+
+============================================================
+[REGEX 02] Productos cuyo nombre inicia con C
+Coleccion: productos
+Consulta: db.productos.find({
+  "nombre": {
+    "$regex": "^C",
+    "$options": "i"
+  }
+}, {
+  "_id": 1,
+  "sku": 1,
+  "nombre": 1,
+  "categoria": 1,
+  "precio": 1,
+  "activo": 1
+}).limit(10)
+Estado: OK
+Muestras devueltas: 1
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe81a7791500cc84126e95"
+    },
+    "sku": "PROD-010",
+    "nombre": "Cargador USB-C",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "350.00"
+    },
+    "activo": true
+  }
+]
+
+============================================================
+[REGEX 03] Productos cuyo nombre contiene a
+Coleccion: productos
+Consulta: db.productos.find({
+  "nombre": {
+    "$regex": "a",
+    "$options": "i"
+  }
+}, {
+  "_id": 1,
+  "sku": 1,
+  "nombre": 1,
+  "categoria": 1,
+  "precio": 1,
+  "activo": 1
+}).limit(10)
+Estado: OK
+Muestras devueltas: 10
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe5cb37d936a0fb9b9742b"
+    },
+    "sku": "LAP-001",
+    "nombre": "Laptop Lenovo IdeaPad",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "12500.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a5791500cc84126e8c"
+    },
+    "sku": "PROD-001",
+    "nombre": "Laptop Lenovo IdeaPad",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "12500.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e8e"
+    },
+    "sku": "PROD-003",
+    "nombre": "Teclado Mecanico",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "1200.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e8f"
+    },
+    "sku": "PROD-004",
+    "nombre": "Monitor Samsung 24",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "3200.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e90"
+    },
+    "sku": "PROD-005",
+    "nombre": "Audifonos Bluetooth",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "850.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e91"
+    },
+    "sku": "PROD-006",
+    "nombre": "Memoria USB 64GB",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "180.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e93"
+    },
+    "sku": "PROD-008",
+    "nombre": "Webcam Full HD",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "680.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e94"
+    },
+    "sku": "PROD-009",
+    "nombre": "Bocina Bluetooth",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "950.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a7791500cc84126e95"
+    },
+    "sku": "PROD-010",
+    "nombre": "Cargador USB-C",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "350.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a7791500cc84126e96"
+    },
+    "sku": "PROD-011",
+    "nombre": "Playera Deportiva",
+    "categoria": "Ropa",
+    "precio": {
+      "$numberDecimal": "299.00"
+    },
+    "activo": true
+  }
+]
+
+============================================================
+[REGEX 04] Productos cuyo nombre contiene e
+Coleccion: productos
+Consulta: db.productos.find({
+  "nombre": {
+    "$regex": "e",
+    "$options": "i"
+  }
+}, {
+  "_id": 1,
+  "sku": 1,
+  "nombre": 1,
+  "categoria": 1,
+  "precio": 1,
+  "activo": 1
+}).limit(10)
+Estado: OK
+Muestras devueltas: 10
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe5cb37d936a0fb9b9742b"
+    },
+    "sku": "LAP-001",
+    "nombre": "Laptop Lenovo IdeaPad",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "12500.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a5791500cc84126e8c"
+    },
+    "sku": "PROD-001",
+    "nombre": "Laptop Lenovo IdeaPad",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "12500.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a5791500cc84126e8d"
+    },
+    "sku": "PROD-002",
+    "nombre": "Mouse Logitech",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "450.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e8e"
+    },
+    "sku": "PROD-003",
+    "nombre": "Teclado Mecanico",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "1200.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e90"
+    },
+    "sku": "PROD-005",
+    "nombre": "Audifonos Bluetooth",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "850.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e91"
+    },
+    "sku": "PROD-006",
+    "nombre": "Memoria USB 64GB",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "180.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e93"
+    },
+    "sku": "PROD-008",
+    "nombre": "Webcam Full HD",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "680.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e94"
+    },
+    "sku": "PROD-009",
+    "nombre": "Bocina Bluetooth",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "950.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a7791500cc84126e96"
+    },
+    "sku": "PROD-011",
+    "nombre": "Playera Deportiva",
+    "categoria": "Ropa",
+    "precio": {
+      "$numberDecimal": "299.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a7791500cc84126e97"
+    },
+    "sku": "PROD-012",
+    "nombre": "Sudadera",
+    "categoria": "Ropa",
+    "precio": {
+      "$numberDecimal": "650.00"
+    },
+    "activo": true
+  }
+]
+
+============================================================
+[REGEX 05] Productos cuyo nombre termina con o
+Coleccion: productos
+Consulta: db.productos.find({
+  "nombre": {
+    "$regex": "o$",
+    "$options": "i"
+  }
+}, {
+  "_id": 1,
+  "sku": 1,
+  "nombre": 1,
+  "categoria": 1,
+  "precio": 1,
+  "activo": 1
+}).limit(10)
+Estado: OK
+Muestras devueltas: 3
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e8e"
+    },
+    "sku": "PROD-003",
+    "nombre": "Teclado Mecanico",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "1200.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a8791500cc84126e9e"
+    },
+    "sku": "PROD-019",
+    "nombre": "Lampara de Escritorio",
+    "categoria": "Hogar",
+    "precio": {
+      "$numberDecimal": "550.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a8791500cc84126ea0"
+    },
+    "sku": "PROD-021",
+    "nombre": "Organizador de Escritorio",
+    "categoria": "Hogar",
+    "precio": {
+      "$numberDecimal": "320.00"
+    },
+    "activo": true
+  }
+]
+
+============================================================
+[REGEX 06] Productos cuyo SKU inicia con LAP
+Coleccion: productos
+Consulta: db.productos.find({
+  "sku": {
+    "$regex": "^LAP"
+  }
+}, {
+  "_id": 1,
+  "sku": 1,
+  "nombre": 1,
+  "categoria": 1,
+  "precio": 1,
+  "activo": 1
+}).limit(10)
+Estado: OK
+Muestras devueltas: 1
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe5cb37d936a0fb9b9742b"
+    },
+    "sku": "LAP-001",
+    "nombre": "Laptop Lenovo IdeaPad",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "12500.00"
+    },
+    "activo": true
+  }
+]
+
+============================================================
+[REGEX 07] Productos con SKU que contiene guion
+Coleccion: productos
+Consulta: db.productos.find({
+  "sku": {
+    "$regex": "-"
+  }
+}, {
+  "_id": 1,
+  "sku": 1,
+  "nombre": 1,
+  "categoria": 1,
+  "precio": 1,
+  "activo": 1
+}).limit(10)
+Estado: OK
+Muestras devueltas: 10
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe5cb37d936a0fb9b9742b"
+    },
+    "sku": "LAP-001",
+    "nombre": "Laptop Lenovo IdeaPad",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "12500.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a5791500cc84126e8c"
+    },
+    "sku": "PROD-001",
+    "nombre": "Laptop Lenovo IdeaPad",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "12500.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a5791500cc84126e8d"
+    },
+    "sku": "PROD-002",
+    "nombre": "Mouse Logitech",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "450.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e8e"
+    },
+    "sku": "PROD-003",
+    "nombre": "Teclado Mecanico",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "1200.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e8f"
+    },
+    "sku": "PROD-004",
+    "nombre": "Monitor Samsung 24",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "3200.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e90"
+    },
+    "sku": "PROD-005",
+    "nombre": "Audifonos Bluetooth",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "850.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e91"
+    },
+    "sku": "PROD-006",
+    "nombre": "Memoria USB 64GB",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "180.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e92"
+    },
+    "sku": "PROD-007",
+    "nombre": "Disco SSD 1TB",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "1450.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e93"
+    },
+    "sku": "PROD-008",
+    "nombre": "Webcam Full HD",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "680.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e94"
+    },
+    "sku": "PROD-009",
+    "nombre": "Bocina Bluetooth",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "950.00"
+    },
+    "activo": true
+  }
+]
+
+============================================================
+[REGEX 08] Productos con SKU que termina en cifra
+Coleccion: productos
+Consulta: db.productos.find({
+  "sku": {
+    "$regex": "[0-9]$"
+  }
+}, {
+  "_id": 1,
+  "sku": 1,
+  "nombre": 1,
+  "categoria": 1,
+  "precio": 1,
+  "activo": 1
+}).limit(10)
+Estado: OK
+Muestras devueltas: 10
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe5cb37d936a0fb9b9742b"
+    },
+    "sku": "LAP-001",
+    "nombre": "Laptop Lenovo IdeaPad",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "12500.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a5791500cc84126e8c"
+    },
+    "sku": "PROD-001",
+    "nombre": "Laptop Lenovo IdeaPad",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "12500.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a5791500cc84126e8d"
+    },
+    "sku": "PROD-002",
+    "nombre": "Mouse Logitech",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "450.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e8e"
+    },
+    "sku": "PROD-003",
+    "nombre": "Teclado Mecanico",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "1200.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e8f"
+    },
+    "sku": "PROD-004",
+    "nombre": "Monitor Samsung 24",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "3200.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e90"
+    },
+    "sku": "PROD-005",
+    "nombre": "Audifonos Bluetooth",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "850.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e91"
+    },
+    "sku": "PROD-006",
+    "nombre": "Memoria USB 64GB",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "180.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e92"
+    },
+    "sku": "PROD-007",
+    "nombre": "Disco SSD 1TB",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "1450.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e93"
+    },
+    "sku": "PROD-008",
+    "nombre": "Webcam Full HD",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "680.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e94"
+    },
+    "sku": "PROD-009",
+    "nombre": "Bocina Bluetooth",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "950.00"
+    },
+    "activo": true
+  }
+]
+
+============================================================
+[REGEX 09] Categorias que comienzan por vocal
+Coleccion: productos
+Consulta: db.productos.find({
+  "categoria": {
+    "$regex": "^[AEIOU]",
+    "$options": "i"
+  }
+}, {
+  "_id": 1,
+  "sku": 1,
+  "nombre": 1,
+  "categoria": 1,
+  "precio": 1,
+  "activo": 1
+}).limit(10)
+Estado: OK
+Muestras devueltas: 10
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe81a7791500cc84126e9a"
+    },
+    "sku": "PROD-015",
+    "nombre": "Gorra",
+    "categoria": "Accesorios",
+    "precio": {
+      "$numberDecimal": "250.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a8791500cc84126e9c"
+    },
+    "sku": "PROD-017",
+    "nombre": "Botella Termica",
+    "categoria": "Accesorios",
+    "precio": {
+      "$numberDecimal": "390.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a8791500cc84126e9b"
+    },
+    "sku": "PROD-016",
+    "nombre": "Mochila Escolar",
+    "categoria": "Accesorios",
+    "precio": {
+      "$numberDecimal": "780.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a8791500cc84126e9d"
+    },
+    "sku": "PROD-018",
+    "nombre": "Reloj Digital",
+    "categoria": "Accesorios",
+    "precio": {
+      "$numberDecimal": "1100.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e91"
+    },
+    "sku": "PROD-006",
+    "nombre": "Memoria USB 64GB",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "180.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a7791500cc84126e95"
+    },
+    "sku": "PROD-010",
+    "nombre": "Cargador USB-C",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "350.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a5791500cc84126e8d"
+    },
+    "sku": "PROD-002",
+    "nombre": "Mouse Logitech",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "450.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e93"
+    },
+    "sku": "PROD-008",
+    "nombre": "Webcam Full HD",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "680.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e90"
+    },
+    "sku": "PROD-005",
+    "nombre": "Audifonos Bluetooth",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "850.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e94"
+    },
+    "sku": "PROD-009",
+    "nombre": "Bocina Bluetooth",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "950.00"
+    },
+    "activo": true
+  }
+]
+
+============================================================
+[REGEX 10] Categorias cuyo nombre contiene a
+Coleccion: productos
+Consulta: db.productos.find({
+  "categoria": {
+    "$regex": "a",
+    "$options": "i"
+  }
+}, {
+  "_id": 1,
+  "sku": 1,
+  "nombre": 1,
+  "categoria": 1,
+  "precio": 1,
+  "activo": 1
+}).limit(10)
+Estado: OK
+Muestras devueltas: 10
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe81a7791500cc84126e9a"
+    },
+    "sku": "PROD-015",
+    "nombre": "Gorra",
+    "categoria": "Accesorios",
+    "precio": {
+      "$numberDecimal": "250.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a8791500cc84126e9c"
+    },
+    "sku": "PROD-017",
+    "nombre": "Botella Termica",
+    "categoria": "Accesorios",
+    "precio": {
+      "$numberDecimal": "390.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a8791500cc84126e9b"
+    },
+    "sku": "PROD-016",
+    "nombre": "Mochila Escolar",
+    "categoria": "Accesorios",
+    "precio": {
+      "$numberDecimal": "780.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a8791500cc84126e9d"
+    },
+    "sku": "PROD-018",
+    "nombre": "Reloj Digital",
+    "categoria": "Accesorios",
+    "precio": {
+      "$numberDecimal": "1100.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e91"
+    },
+    "sku": "PROD-006",
+    "nombre": "Memoria USB 64GB",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "180.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a7791500cc84126e95"
+    },
+    "sku": "PROD-010",
+    "nombre": "Cargador USB-C",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "350.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a5791500cc84126e8d"
+    },
+    "sku": "PROD-002",
+    "nombre": "Mouse Logitech",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "450.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e93"
+    },
+    "sku": "PROD-008",
+    "nombre": "Webcam Full HD",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "680.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e90"
+    },
+    "sku": "PROD-005",
+    "nombre": "Audifonos Bluetooth",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "850.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e94"
+    },
+    "sku": "PROD-009",
+    "nombre": "Bocina Bluetooth",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "950.00"
+    },
+    "activo": true
+  }
+]
+
+============================================================
+[REGEX 11] Productos con proveedor que contiene a
+Coleccion: productos
+Consulta: db.productos.find({
+  "proveedor.nombre": {
+    "$regex": "a",
+    "$options": "i"
+  }
+}, {
+  "_id": 1,
+  "sku": 1,
+  "nombre": 1,
+  "categoria": 1,
+  "precio": 1,
+  "activo": 1
+}).limit(10)
+Estado: OK
+Muestras devueltas: 10
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe5cb37d936a0fb9b9742b"
+    },
+    "sku": "LAP-001",
+    "nombre": "Laptop Lenovo IdeaPad",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "12500.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a5791500cc84126e8c"
+    },
+    "sku": "PROD-001",
+    "nombre": "Laptop Lenovo IdeaPad",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "12500.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a5791500cc84126e8d"
+    },
+    "sku": "PROD-002",
+    "nombre": "Mouse Logitech",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "450.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e8e"
+    },
+    "sku": "PROD-003",
+    "nombre": "Teclado Mecanico",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "1200.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e8f"
+    },
+    "sku": "PROD-004",
+    "nombre": "Monitor Samsung 24",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "3200.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e90"
+    },
+    "sku": "PROD-005",
+    "nombre": "Audifonos Bluetooth",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "850.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e91"
+    },
+    "sku": "PROD-006",
+    "nombre": "Memoria USB 64GB",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "180.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e92"
+    },
+    "sku": "PROD-007",
+    "nombre": "Disco SSD 1TB",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "1450.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e93"
+    },
+    "sku": "PROD-008",
+    "nombre": "Webcam Full HD",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "680.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e94"
+    },
+    "sku": "PROD-009",
+    "nombre": "Bocina Bluetooth",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "950.00"
+    },
+    "activo": true
+  }
+]
+
+============================================================
+[REGEX 12] Productos con descripcion que contiene e
+Coleccion: productos
+Consulta: db.productos.find({
+  "descripcion": {
+    "$regex": "e",
+    "$options": "i"
+  }
+}, {
+  "_id": 1,
+  "sku": 1,
+  "nombre": 1,
+  "categoria": 1,
+  "precio": 1,
+  "activo": 1
+}).limit(10)
+Estado: OK
+Muestras devueltas: 10
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe5cb37d936a0fb9b9742b"
+    },
+    "sku": "LAP-001",
+    "nombre": "Laptop Lenovo IdeaPad",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "12500.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a5791500cc84126e8c"
+    },
+    "sku": "PROD-001",
+    "nombre": "Laptop Lenovo IdeaPad",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "12500.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a5791500cc84126e8d"
+    },
+    "sku": "PROD-002",
+    "nombre": "Mouse Logitech",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "450.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e8e"
+    },
+    "sku": "PROD-003",
+    "nombre": "Teclado Mecanico",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "1200.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e8f"
+    },
+    "sku": "PROD-004",
+    "nombre": "Monitor Samsung 24",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "3200.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e90"
+    },
+    "sku": "PROD-005",
+    "nombre": "Audifonos Bluetooth",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "850.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e91"
+    },
+    "sku": "PROD-006",
+    "nombre": "Memoria USB 64GB",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "180.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e92"
+    },
+    "sku": "PROD-007",
+    "nombre": "Disco SSD 1TB",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "1450.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e93"
+    },
+    "sku": "PROD-008",
+    "nombre": "Webcam Full HD",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "680.00"
+    },
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e94"
+    },
+    "sku": "PROD-009",
+    "nombre": "Bocina Bluetooth",
+    "categoria": "Electronica",
+    "precio": {
+      "$numberDecimal": "950.00"
+    },
+    "activo": true
+  }
+]
+
+============================================================
+[REGEX 13] Clientes cuyo nombre empieza con A
+Coleccion: clientes
+Consulta: db.clientes.find({
+  "nombre": {
+    "$regex": "^A",
+    "$options": "i"
+  }
+}, {
+  "_id": 1,
+  "nombre": 1,
+  "apellidos": 1,
+  "activo": 1
+}).limit(10)
+Estado: OK
+Muestras devueltas: 0
+Resultados: []
+
+============================================================
+[REGEX 14] Clientes con nombre que contiene e
+Coleccion: clientes
+Consulta: db.clientes.find({
+  "nombre": {
+    "$regex": "e",
+    "$options": "i"
+  }
+}, {
+  "_id": 1,
+  "nombre": 1,
+  "apellidos": 1,
+  "activo": 1
+}).limit(10)
+Estado: OK
+Muestras devueltas: 10
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe81a2791500cc84126e78"
+    },
+    "nombre": "Genaro",
+    "apellidos": "Maya Sandoval",
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a2791500cc84126e79"
+    },
+    "nombre": "Federico",
+    "apellidos": "Rascón Alba",
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a3791500cc84126e7b"
+    },
+    "nombre": "Dolores",
+    "apellidos": "Valle Roque",
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a3791500cc84126e7e"
+    },
+    "nombre": "Esther",
+    "apellidos": "Elizondo Pizarro",
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a3791500cc84126e7f"
+    },
+    "nombre": "Emilio",
+    "apellidos": "Farías Gutiérrez",
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a3791500cc84126e80"
+    },
+    "nombre": "Guillermo",
+    "apellidos": "Zamora Santana",
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a4791500cc84126e81"
+    },
+    "nombre": "Diego",
+    "apellidos": "Ávalos Montenegro",
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a4791500cc84126e82"
+    },
+    "nombre": "Nelly",
+    "apellidos": "Solís Fonseca",
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a4791500cc84126e83"
+    },
+    "nombre": "Ilse",
+    "apellidos": "Almonte Ceballos",
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a4791500cc84126e85"
+    },
+    "nombre": "Esteban",
+    "apellidos": "Rentería Menéndez",
+    "activo": true
+  }
+]
+
+============================================================
+[REGEX 15] Clientes con apellidos que empiezan con M
+Coleccion: clientes
+Consulta: db.clientes.find({
+  "apellidos": {
+    "$regex": "^M",
+    "$options": "i"
+  }
+}, {
+  "_id": 1,
+  "nombre": 1,
+  "apellidos": 1,
+  "activo": 1
+}).limit(10)
+Estado: OK
+Muestras devueltas: 1
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe81a2791500cc84126e78"
+    },
+    "nombre": "Genaro",
+    "apellidos": "Maya Sandoval",
+    "activo": true
+  }
+]
+
+============================================================
+[REGEX 16] Clientes con apellido que contiene a
+Coleccion: clientes
+Consulta: db.clientes.find({
+  "apellidos": {
+    "$regex": "a",
+    "$options": "i"
+  }
+}, {
+  "_id": 1,
+  "nombre": 1,
+  "apellidos": 1,
+  "activo": 1
+}).limit(10)
+Estado: OK
+Muestras devueltas: 10
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe81a2791500cc84126e78"
+    },
+    "nombre": "Genaro",
+    "apellidos": "Maya Sandoval",
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a2791500cc84126e79"
+    },
+    "nombre": "Federico",
+    "apellidos": "Rascón Alba",
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a2791500cc84126e7a"
+    },
+    "nombre": "Horacio",
+    "apellidos": "Vélez Mares",
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a3791500cc84126e7b"
+    },
+    "nombre": "Dolores",
+    "apellidos": "Valle Roque",
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a3791500cc84126e7c"
+    },
+    "nombre": "Rosalia",
+    "apellidos": "Reyes Rodarte",
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a3791500cc84126e7d"
+    },
+    "nombre": "Fabiola",
+    "apellidos": "Solorzano Saiz",
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a3791500cc84126e7e"
+    },
+    "nombre": "Esther",
+    "apellidos": "Elizondo Pizarro",
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a3791500cc84126e7f"
+    },
+    "nombre": "Emilio",
+    "apellidos": "Farías Gutiérrez",
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a3791500cc84126e80"
+    },
+    "nombre": "Guillermo",
+    "apellidos": "Zamora Santana",
+    "activo": true
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a4791500cc84126e81"
+    },
+    "nombre": "Diego",
+    "apellidos": "Ávalos Montenegro",
+    "activo": true
+  }
+]
+
+============================================================
+[REGEX 17] Pedidos con estado que contiene a
+Coleccion: pedidos
+Consulta: db.pedidos.find({
+  "estado": {
+    "$regex": "a",
+    "$options": "i"
+  }
+}, {
+  "_id": 1,
+  "estado": 1,
+  "fecha_pedido": 1,
+  "total": 1
+}).limit(10)
+Estado: OK
+Muestras devueltas: 0
+Resultados: []
+
+============================================================
+[REGEX 18] Pedidos con estado que empieza por p
+Coleccion: pedidos
+Consulta: db.pedidos.find({
+  "estado": {
+    "$regex": "^p",
+    "$options": "i"
+  }
+}, {
+  "_id": 1,
+  "estado": 1,
+  "fecha_pedido": 1,
+  "total": 1
+}).limit(10)
+Estado: OK
+Muestras devueltas: 10
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe7efd65332569ad30fbd5"
+    },
+    "fecha_pedido": {
+      "$date": "2026-11-19T04:45:49.536Z"
+    },
+    "total": {
+      "$numberDecimal": "12700.00"
+    },
+    "estado": "Pendiente"
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ebf"
+    },
+    "fecha_pedido": {
+      "$date": "2026-11-01T00:00:00Z"
+    },
+    "total": {
+      "$numberDecimal": "15276.40"
+    },
+    "estado": "Pendiente"
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec0"
+    },
+    "fecha_pedido": {
+      "$date": "2026-11-02T00:00:00Z"
+    },
+    "total": {
+      "$numberDecimal": "4558.00"
+    },
+    "estado": "Pendiente"
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec1"
+    },
+    "fecha_pedido": {
+      "$date": "2026-11-03T00:00:00Z"
+    },
+    "total": {
+      "$numberDecimal": "4511.60"
+    },
+    "estado": "Pendiente"
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec2"
+    },
+    "fecha_pedido": {
+      "$date": "2026-11-04T00:00:00Z"
+    },
+    "total": {
+      "$numberDecimal": "6066.00"
+    },
+    "estado": "Pendiente"
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec3"
+    },
+    "fecha_pedido": {
+      "$date": "2026-11-05T00:00:00Z"
+    },
+    "total": {
+      "$numberDecimal": "4326.00"
+    },
+    "estado": "Pendiente"
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec4"
+    },
+    "fecha_pedido": {
+      "$date": "2026-11-06T00:00:00Z"
+    },
+    "total": {
+      "$numberDecimal": "914.44"
+    },
+    "estado": "Pendiente"
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b4791500cc84126ec5"
+    },
+    "fecha_pedido": {
+      "$date": "2026-11-07T00:00:00Z"
+    },
+    "total": {
+      "$numberDecimal": "5776.00"
+    },
+    "estado": "Pendiente"
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b4791500cc84126ec6"
+    },
+    "fecha_pedido": {
+      "$date": "2026-11-08T00:00:00Z"
+    },
+    "total": {
+      "$numberDecimal": "4370.08"
+    },
+    "estado": "Pendiente"
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b4791500cc84126ec7"
+    },
+    "fecha_pedido": {
+      "$date": "2026-11-09T00:00:00Z"
+    },
+    "total": {
+      "$numberDecimal": "7052.00"
+    },
+    "estado": "Pendiente"
+  }
+]
+
+============================================================
+[REGEX 19] Pagos con referencia que contiene guion
+Coleccion: pagos
+Consulta: db.pagos.find({
+  "referencia": {
+    "$regex": "-"
+  }
+}, {
+  "_id": 1,
+  "referencia": 1,
+  "metodo": 1,
+  "estado": 1,
+  "monto": 1
+}).limit(10)
+Estado: OK
+Muestras devueltas: 10
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe81b6791500cc84126ed3"
+    },
+    "referencia": "SEED-PAGO-001",
+    "metodo": "Tarjeta",
+    "monto": {
+      "$numberDecimal": "15276.40"
+    },
+    "estado": "Pendiente"
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b6791500cc84126ed4"
+    },
+    "referencia": "SEED-PAGO-002",
+    "metodo": "Efectivo",
+    "monto": {
+      "$numberDecimal": "4558.00"
+    },
+    "estado": "Pendiente"
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b6791500cc84126ed5"
+    },
+    "referencia": "SEED-PAGO-003",
+    "metodo": "Efectivo",
+    "monto": {
+      "$numberDecimal": "4511.60"
+    },
+    "estado": "Pendiente"
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b6791500cc84126ed6"
+    },
+    "referencia": "SEED-PAGO-004",
+    "metodo": "Transferencia",
+    "monto": {
+      "$numberDecimal": "6066.00"
+    },
+    "estado": "Pendiente"
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b7791500cc84126ed7"
+    },
+    "referencia": "SEED-PAGO-005",
+    "metodo": "Efectivo",
+    "monto": {
+      "$numberDecimal": "4326.00"
+    },
+    "estado": "Pendiente"
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b7791500cc84126ed8"
+    },
+    "referencia": "SEED-PAGO-006",
+    "metodo": "Transferencia",
+    "monto": {
+      "$numberDecimal": "914.44"
+    },
+    "estado": "Pendiente"
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b7791500cc84126ed9"
+    },
+    "referencia": "SEED-PAGO-007",
+    "metodo": "Efectivo",
+    "monto": {
+      "$numberDecimal": "5776.00"
+    },
+    "estado": "Pendiente"
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b7791500cc84126eda"
+    },
+    "referencia": "SEED-PAGO-008",
+    "metodo": "Efectivo",
+    "monto": {
+      "$numberDecimal": "4370.08"
+    },
+    "estado": "Pendiente"
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b8791500cc84126edb"
+    },
+    "referencia": "SEED-PAGO-009",
+    "metodo": "Transferencia",
+    "monto": {
+      "$numberDecimal": "7052.00"
+    },
+    "estado": "Pendiente"
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b8791500cc84126edc"
+    },
+    "referencia": "SEED-PAGO-010",
+    "metodo": "Efectivo",
+    "monto": {
+      "$numberDecimal": "1542.00"
+    },
+    "estado": "Pendiente"
+  }
+]
+
+============================================================
+[REGEX 20] Auditoria con accion que contiene a
+Coleccion: auditoria
+Consulta: db.auditoria.find({
+  "accion": {
+    "$regex": "a",
+    "$options": "i"
+  }
+}, {
+  "_id": 1,
+  "usuario": 1,
+  "accion": 1,
+  "coleccion": 1
+}).limit(10)
+Estado: OK
+Muestras devueltas: 0
+Resultados: []
+
+TOTAL REGEX: 20; ERRORES: 0; CONSULTAS CON MUESTRAS: 17

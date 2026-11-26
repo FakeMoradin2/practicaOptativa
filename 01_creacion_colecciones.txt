@@ -1,0 +1,303 @@
+use ecommerce_nosql
+
+db.createCollection("clientes", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: [
+        "nombre",
+        "apellidos",
+        "correo_hash",
+        "correo_cifrado",
+        "telefono_cifrado",
+        "direcciones",
+        "fecha_registro",
+        "activo"
+      ],
+      properties: {
+        _id: {
+          bsonType: "objectId"
+        },
+        nombre: {
+          bsonType: "string",
+          minLength: 2,
+          maxLength: 80
+        },
+        apellidos: {
+          bsonType: "string",
+          minLength: 2,
+          maxLength: 100
+        },
+        correo_hash: {
+          bsonType: "string",
+          pattern: "^[a-f0-9]{64}$"
+        },
+        correo_cifrado: {
+          bsonType: "string"
+        },
+        telefono_cifrado: {
+          bsonType: "string"
+        },
+        direcciones: {
+          bsonType: "array",
+          minItems: 1,
+          items: {
+            bsonType: "object",
+            required: [
+              "calle",
+              "ciudad",
+              "estado",
+              "codigo_postal"
+            ],
+            properties: {
+              calle: { bsonType: "string" },
+              ciudad: { bsonType: "string" },
+              estado: { bsonType: "string" },
+              codigo_postal: {
+                bsonType: "string",
+                pattern: "^[0-9]{5}$"
+              }
+            }
+          }
+        },
+        fecha_registro: {
+          bsonType: "date"
+        },
+        activo: {
+          bsonType: "bool"
+        }
+      }
+    }
+  },
+  validationLevel: "strict",
+  validationAction: "error"
+})
+
+db.createCollection("productos", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["sku", "nombre", "categoria", "precio", "moneda", "proveedor", "activo"],
+      properties: {
+        _id: { bsonType: "objectId" },
+        sku: {
+          bsonType: "string",
+          pattern: "^[A-Z0-9-]+$"
+        },
+        nombre: {
+          bsonType: "string",
+          minLength: 3,
+          maxLength: 120
+        },
+        descripcion: {
+          bsonType: "string",
+          maxLength: 1000
+        },
+        categoria: { bsonType: "string", minLength: 2 },
+        precio: {
+          bsonType: "decimal",
+          minimum: NumberDecimal("0.01")
+        },
+        moneda: { enum: ["MXN"] },
+        proveedor: {
+          bsonType: "object",
+          required: ["nombre", "correo"],
+          properties: {
+            nombre: { bsonType: "string" },
+            correo: {
+              bsonType: "string",
+              pattern: "^[^@ ]+@[^@ ]+[.][^@ ]+$"
+            }
+          }
+        },
+        caracteristicas: { bsonType: "object" },
+        activo: { bsonType: "bool" }
+      }
+    }
+  },
+  validationLevel: "strict",
+  validationAction: "error"
+})
+
+db.createCollection("pedidos", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: [
+        "cliente_id", "fecha_pedido", "productos",
+        "subtotal", "impuestos", "costo_envio",
+        "total", "estado"
+      ],
+      properties: {
+        _id: { bsonType: "objectId" },
+        cliente_id: { bsonType: "objectId" },
+        fecha_pedido: { bsonType: "date" },
+        productos: {
+          bsonType: "array",
+          minItems: 1,
+          items: {
+            bsonType: "object",
+            required: [
+              "producto_id", "sku", "nombre",
+              "cantidad", "precio_unitario", "subtotal"
+            ],
+            properties: {
+              producto_id: { bsonType: "objectId" },
+              sku: { bsonType: "string" },
+              nombre: { bsonType: "string" },
+              cantidad: {
+                bsonType: "int",
+                minimum: 1
+              },
+              precio_unitario: {
+                bsonType: "decimal",
+                minimum: NumberDecimal("0.01")
+              },
+              subtotal: {
+                bsonType: "decimal",
+                minimum: NumberDecimal("0")
+              }
+            }
+          }
+        },
+        subtotal: {
+          bsonType: "decimal",
+          minimum: NumberDecimal("0")
+        },
+        impuestos: {
+          bsonType: "decimal",
+          minimum: NumberDecimal("0")
+        },
+        costo_envio: {
+          bsonType: "decimal",
+          minimum: NumberDecimal("0")
+        },
+        total: {
+          bsonType: "decimal",
+          minimum: NumberDecimal("0.01")
+        },
+        estado: {
+          enum: [
+            "Pendiente", "Pagado", "Enviado",
+            "Entregado", "Cancelado"
+          ]
+        },
+        envio: {
+          bsonType: "object",
+          required: ["paqueteria", "estado", "direccion"],
+          properties: {
+            paqueteria: { bsonType: "string" },
+            numero_guia: { bsonType: "string" },
+            estado: {
+              enum: ["Pendiente", "Preparando", "En tránsito", "Entregado"]
+            },
+            direccion: { bsonType: "object" }
+          }
+        }
+      }
+    }
+  },
+  validationLevel: "strict",
+  validationAction: "error"
+})
+
+db.createCollection("pagos", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: [
+        "pedido_id", "referencia", "metodo",
+        "monto", "moneda", "estado", "fecha_pago"
+      ],
+      properties: {
+        _id: { bsonType: "objectId" },
+        pedido_id: { bsonType: "objectId" },
+        referencia: {
+          bsonType: "string",
+          pattern: "^[A-Z0-9-]+$"
+        },
+        metodo: {
+          enum: ["Tarjeta", "Transferencia", "Efectivo"]
+        },
+        monto: {
+          bsonType: "decimal",
+          minimum: NumberDecimal("0.01")
+        },
+        moneda: { enum: ["MXN"] },
+        estado: {
+          enum: ["Pendiente", "Aprobado", "Rechazado"]
+        },
+        fecha_pago: { bsonType: "date" }
+      }
+    }
+  },
+  validationLevel: "strict",
+  validationAction: "error"
+})
+
+db.createCollection("inventario", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: [
+        "producto_id", "almacen", "existencias",
+        "reservadas", "stock_minimo", "ultima_actualizacion"
+      ],
+      properties: {
+        _id: { bsonType: "objectId" },
+        producto_id: { bsonType: "objectId" },
+        almacen: { bsonType: "string", minLength: 2 },
+        existencias: {
+          bsonType: "int",
+          minimum: 0
+        },
+        reservadas: {
+          bsonType: "int",
+          minimum: 0
+        },
+        stock_minimo: {
+          bsonType: "int",
+          minimum: 0
+        },
+        ultima_actualizacion: { bsonType: "date" }
+      }
+    }
+  },
+  validationLevel: "strict",
+  validationAction: "error"
+})
+
+db.createCollection("auditoria", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: [
+        "usuario", "accion", "coleccion",
+        "documento_id", "fecha"
+      ],
+      properties: {
+        _id: { bsonType: "objectId" },
+        usuario: { bsonType: "string", minLength: 2 },
+        accion: {
+          enum: ["INSERT", "UPDATE", "DELETE"]
+        },
+        coleccion: {
+          enum: [
+            "clientes", "productos", "pedidos",
+            "pagos", "inventario"
+          ]
+        },
+        documento_id: { bsonType: "objectId" },
+        fecha: { bsonType: "date" },
+        datos_anteriores: {
+          bsonType: ["object", "null"]
+        },
+        datos_nuevos: {
+          bsonType: ["object", "null"]
+        }
+      }
+    }
+  },
+  validationLevel: "strict",
+  validationAction: "error"
+})

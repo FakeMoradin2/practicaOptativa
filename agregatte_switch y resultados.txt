@@ -1,0 +1,103 @@
+// E-COMMERCE NOSQL - 30 consultas AGGREGATE con 5 SWITCH
+// SOLO LECTURA: este script no modifica MongoDB.
+// Ejecutar desde mongosh: load("/ruta/completa/14_consultas_30_aggregate_switch.txt")
+// Crea el TXT de resultados en el directorio de trabajo de mongosh.
+// El script muestra la ruta absoluta donde guarda el resultado.
+// El TXT contiene consultas completas, hasta 10 resultados por consulta, errores y resumen.
+// El archivo de salida se sobrescribe al repetir la prueba.
+
+(function () {
+  const fs = require("fs");
+  const path = require("path");
+  const base = db.getSiblingDB("ecommerce_nosql");
+  const carpeta = process.cwd(); // Ubicacion de los resultados (usa process.cwd() en mongosh)
+  const maxResultados = 10; // muestras por consulta: el limite NO altera la base
+  const nombreBase = base.getName();
+  const salidas = {};
+  const resumen = {};
+  function imprimir(texto) { print(texto); }
+  function ejson(valor) { return EJSON.stringify(valor, null, 2); }
+  function iniciar(tipo) {
+    salidas[tipo] = ["ECOMMERCE NoSQL - RESULTADOS " + tipo, "Base: " + nombreBase,
+      "Fecha: " + new Date().toISOString(),
+      "Cada consulta muestra hasta " + maxResultados + " documentos de ejemplo; no implica que ese sea el total.", ""];
+    resumen[tipo] = { ejecutadas: 0, errores: 0, conDatos: 0 };
+    imprimir("\n========== " + tipo + " ==========");
+  }
+  function ejecutar(tipo, numero, titulo, coleccion, operacion, consulta) {
+    const encabezado = "[" + tipo + " " + String(numero).padStart(2, "0") + "] " + titulo;
+    const lineas = ["============================================================", encabezado,
+      "Coleccion: " + coleccion, "Consulta: " + consulta];
+    try {
+      const datos = operacion();
+      lineas.push("Estado: OK", "Muestras devueltas: " + datos.length,
+        "Resultados: " + ejson(datos));
+      resumen[tipo].conDatos += datos.length > 0 ? 1 : 0;
+    } catch (e) {
+      resumen[tipo].errores++;
+      lineas.push("Estado: ERROR", "Detalle: " + String(e.message || e));
+    }
+    resumen[tipo].ejecutadas++;
+    salidas[tipo].push(...lineas, "");
+    imprimir(encabezado + " | " + lineas.find(l => l.startsWith("Estado:")) +
+      " | " + (lineas.find(l => l.startsWith("Muestras devueltas:")) || "sin muestras"));
+  }
+  function regex(n, titulo, coleccion, filtro, proyeccion) {
+    ejecutar("REGEX", n, titulo, coleccion,
+      () => base.getCollection(coleccion).find(filtro, proyeccion).limit(maxResultados).toArray(),
+      "db." + coleccion + ".find(" + ejson(filtro) + ", " + ejson(proyeccion) + ").limit(" + maxResultados + ")");
+  }
+  function pipeline(tipo, n, titulo, coleccion, etapas) {
+    const consulta = etapas.concat([{ $limit: maxResultados }]);
+    ejecutar(tipo, n, titulo, coleccion,
+      () => base.getCollection(coleccion).aggregate(consulta).toArray(),
+      "db." + coleccion + ".aggregate(" + ejson(consulta) + ")");
+  }
+  function terminar(tipo, archivo) {
+    const s = resumen[tipo];
+    const resumenTexto = "TOTAL " + tipo + ": " + s.ejecutadas + "; ERRORES: " + s.errores +
+      "; CONSULTAS CON MUESTRAS: " + s.conDatos;
+    salidas[tipo].push(resumenTexto);
+    const destino = path.join(carpeta, archivo);
+    fs.writeFileSync(destino, salidas[tipo].join("\n"), "utf8");
+    imprimir(resumenTexto);
+    imprimir("GUARDADO: " + destino);
+  }
+  const camposClientes = { _id: 1, nombre: 1, apellidos: 1, activo: 1 };
+  const camposProductos = { _id: 1, sku: 1, nombre: 1, categoria: 1, precio: 1, activo: 1 };
+  const camposPedidos = { _id: 1, estado: 1, fecha_pedido: 1, total: 1 };
+  const camposPagos = { _id: 1, referencia: 1, metodo: 1, estado: 1, monto: 1 };
+  iniciar("AGGREGATE");
+  pipeline("AGGREGATE", 1, "Productos por categoria", "productos", [{"$group": {"_id": "$categoria", "cantidad": {"$sum": 1}}}, {"$sort": {"cantidad": -1}}]);
+  pipeline("AGGREGATE", 2, "Conteo productos activos e inactivos", "productos", [{"$group": {"_id": "$activo", "cantidad": {"$sum": 1}}}]);
+  pipeline("AGGREGATE", 3, "Precio promedio por categoria", "productos", [{"$group": {"_id": "$categoria", "precio_promedio": {"$avg": "$precio"}}}]);
+  pipeline("AGGREGATE", 4, "Precio minimo y maximo por categoria", "productos", [{"$group": {"_id": "$categoria", "minimo": {"$min": "$precio"}, "maximo": {"$max": "$precio"}}}]);
+  pipeline("AGGREGATE", 5, "Productos mas caros", "productos", [{"$sort": {"precio": -1}}, {"$project": {"sku": 1, "nombre": 1, "precio": 1}}]);
+  pipeline("AGGREGATE", 6, "Productos mas economicos", "productos", [{"$sort": {"precio": 1}}, {"$project": {"sku": 1, "nombre": 1, "precio": 1}}]);
+  pipeline("AGGREGATE", 7, "Productos por proveedor", "productos", [{"$group": {"_id": "$proveedor.nombre", "cantidad": {"$sum": 1}}}, {"$sort": {"cantidad": -1}}]);
+  pipeline("AGGREGATE", 8, "Cantidad de productos por moneda", "productos", [{"$group": {"_id": "$moneda", "cantidad": {"$sum": 1}}}]);
+  pipeline("AGGREGATE", 9, "Inventario total por almacen", "inventario", [{"$group": {"_id": "$almacen", "existencias_totales": {"$sum": "$existencias"}}}]);
+  pipeline("AGGREGATE", 10, "Unidades reservadas por almacen", "inventario", [{"$group": {"_id": "$almacen", "reservadas_totales": {"$sum": "$reservadas"}}}]);
+  pipeline("AGGREGATE", 11, "Disponibles por almacen", "inventario", [{"$project": {"almacen": 1, "disponibles": {"$subtract": ["$existencias", "$reservadas"]}}}, {"$group": {"_id": "$almacen", "disponibles": {"$sum": "$disponibles"}}}]);
+  pipeline("AGGREGATE", 12, "Inventarios bajo stock minimo", "inventario", [{"$match": {"$expr": {"$lt": ["$existencias", "$stock_minimo"]}}}, {"$project": {"producto_id": 1, "almacen": 1, "existencias": 1, "stock_minimo": 1}}]);
+  pipeline("AGGREGATE", 13, "Inventarios ordenados por reservas", "inventario", [{"$sort": {"reservadas": -1}}, {"$project": {"producto_id": 1, "reservadas": 1, "existencias": 1}}]);
+  pipeline("AGGREGATE", 14, "Pedidos por estado", "pedidos", [{"$group": {"_id": "$estado", "cantidad": {"$sum": 1}}}]);
+  pipeline("AGGREGATE", 15, "Monto total de pedidos por estado", "pedidos", [{"$group": {"_id": "$estado", "monto": {"$sum": "$total"}}}]);
+  pipeline("AGGREGATE", 16, "Pedido promedio por estado", "pedidos", [{"$group": {"_id": "$estado", "promedio": {"$avg": "$total"}}}]);
+  pipeline("AGGREGATE", 17, "Pedidos por mes", "pedidos", [{"$group": {"_id": {"$dateToString": {"format": "%Y-%m", "date": "$fecha_pedido"}}, "cantidad": {"$sum": 1}}}, {"$sort": {"_id": 1}}]);
+  pipeline("AGGREGATE", 18, "Productos distintos por pedido", "pedidos", [{"$project": {"estado": 1, "lineas": {"$size": "$productos"}, "total": 1}}]);
+  pipeline("AGGREGATE", 19, "Unidades vendidas por SKU", "pedidos", [{"$unwind": "$productos"}, {"$group": {"_id": "$productos.sku", "unidades": {"$sum": "$productos.cantidad"}}}, {"$sort": {"unidades": -1}}]);
+  pipeline("AGGREGATE", 20, "Ingresos de lineas de productos por SKU", "pedidos", [{"$unwind": "$productos"}, {"$group": {"_id": "$productos.sku", "subtotal_acumulado": {"$sum": "$productos.subtotal"}}}]);
+  pipeline("AGGREGATE", 21, "Pagos por metodo", "pagos", [{"$group": {"_id": "$metodo", "cantidad": {"$sum": 1}}}]);
+  pipeline("AGGREGATE", 22, "Pagos por estado", "pagos", [{"$group": {"_id": "$estado", "cantidad": {"$sum": 1}}}]);
+  pipeline("AGGREGATE", 23, "Monto de pagos por metodo", "pagos", [{"$group": {"_id": "$metodo", "monto_total": {"$sum": "$monto"}}}]);
+  pipeline("AGGREGATE", 24, "Auditoria por accion", "auditoria", [{"$group": {"_id": "$accion", "eventos": {"$sum": 1}}}]);
+  pipeline("AGGREGATE", 25, "Auditoria por coleccion afectada", "auditoria", [{"$group": {"_id": "$coleccion", "eventos": {"$sum": 1}}}]);
+  pipeline("AGGREGATE", 26, "SWITCH 1: Clasificacion de precios", "productos", [{"$project": {"sku": 1, "precio": 1, "nivel": {"$switch": {"branches": [{"case": {"$lt": ["$precio", 1000]}, "then": "economico"}, {"case": {"$lt": ["$precio", 5000]}, "then": "intermedio"}], "default": "premium"}}}}]);
+  pipeline("AGGREGATE", 27, "SWITCH 2: Nivel de inventario", "inventario", [{"$project": {"almacen": 1, "existencias": 1, "nivel": {"$switch": {"branches": [{"case": {"$eq": ["$existencias", 0]}, "then": "agotado"}, {"case": {"$lt": ["$existencias", "$stock_minimo"]}, "then": "bajo"}], "default": "suficiente"}}}}]);
+  pipeline("AGGREGATE", 28, "SWITCH 3: Clasificacion de monto de pedido", "pedidos", [{"$project": {"total": 1, "estado": 1, "categoria_monto": {"$switch": {"branches": [{"case": {"$lt": ["$total", 1000]}, "then": "pequeno"}, {"case": {"$lt": ["$total", 10000]}, "then": "mediano"}], "default": "grande"}}}}]);
+  pipeline("AGGREGATE", 29, "SWITCH 4: Estado simplificado de pagos", "pagos", [{"$project": {"referencia": 1, "estado": 1, "grupo_estado": {"$switch": {"branches": [{"case": {"$in": ["$estado", ["aprobado", "pagado", "completado"]]}, "then": "exitoso"}, {"case": {"$in": ["$estado", ["rechazado", "fallido", "cancelado"]]}, "then": "fallido"}], "default": "pendiente_u_otro"}}}}]);
+  pipeline("AGGREGATE", 30, "SWITCH 5: Tipo de accion de auditoria", "auditoria", [{"$project": {"accion": 1, "coleccion": 1, "tipo": {"$switch": {"branches": [{"case": {"$in": ["$accion", ["INSERT", "insert", "crear", "CREAR"]]}, "then": "alta"}, {"case": {"$in": ["$accion", ["UPDATE", "update", "actualizar", "ACTUALIZAR"]]}, "then": "cambio"}], "default": "otro"}}}}]);
+  terminar("AGGREGATE", "RESULTADOS_30_AGGREGATE.txt");
+  imprimir("FIN DE AGGREGATE. Archivo de resultados generado.");
+})();

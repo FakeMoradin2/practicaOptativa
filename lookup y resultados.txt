@@ -1,0 +1,2922 @@
+ECOMMERCE NoSQL - RESULTADOS LOOKUP
+Base: ecommerce_nosql
+Fecha: 2026-11-26T02:31:11.752Z
+Cada consulta muestra hasta 10 documentos de ejemplo; no implica que ese sea el total.
+
+============================================================
+[LOOKUP 01] Pedidos con cliente asociado
+Coleccion: pedidos
+Consulta: db.pedidos.aggregate([
+  {
+    "$lookup": {
+      "from": "clientes",
+      "localField": "cliente_id",
+      "foreignField": "_id",
+      "as": "cliente"
+    }
+  },
+  {
+    "$project": {
+      "estado": 1,
+      "total": 1,
+      "cliente.nombre": 1,
+      "cliente.apellidos": 1
+    }
+  },
+  {
+    "$limit": 10
+  }
+])
+Estado: OK
+Muestras devueltas: 10
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe7efd65332569ad30fbd5"
+    },
+    "total": {
+      "$numberDecimal": "12700.00"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "nombre": "Juan",
+        "apellidos": "Perez Lopez"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ebf"
+    },
+    "total": {
+      "$numberDecimal": "15276.40"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "nombre": "Genaro",
+        "apellidos": "Maya Sandoval"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec0"
+    },
+    "total": {
+      "$numberDecimal": "4558.00"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "nombre": "Federico",
+        "apellidos": "Rascón Alba"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec1"
+    },
+    "total": {
+      "$numberDecimal": "4511.60"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "nombre": "Horacio",
+        "apellidos": "Vélez Mares"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec2"
+    },
+    "total": {
+      "$numberDecimal": "6066.00"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "nombre": "Dolores",
+        "apellidos": "Valle Roque"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec3"
+    },
+    "total": {
+      "$numberDecimal": "4326.00"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "nombre": "Rosalia",
+        "apellidos": "Reyes Rodarte"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec4"
+    },
+    "total": {
+      "$numberDecimal": "914.44"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "nombre": "Fabiola",
+        "apellidos": "Solorzano Saiz"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b4791500cc84126ec5"
+    },
+    "total": {
+      "$numberDecimal": "5776.00"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "nombre": "Esther",
+        "apellidos": "Elizondo Pizarro"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b4791500cc84126ec6"
+    },
+    "total": {
+      "$numberDecimal": "4370.08"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "nombre": "Emilio",
+        "apellidos": "Farías Gutiérrez"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b4791500cc84126ec7"
+    },
+    "total": {
+      "$numberDecimal": "7052.00"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "nombre": "Guillermo",
+        "apellidos": "Zamora Santana"
+      }
+    ]
+  }
+]
+
+============================================================
+[LOOKUP 02] Pedidos con nombre de cliente
+Coleccion: pedidos
+Consulta: db.pedidos.aggregate([
+  {
+    "$lookup": {
+      "from": "clientes",
+      "localField": "cliente_id",
+      "foreignField": "_id",
+      "as": "cliente"
+    }
+  },
+  {
+    "$project": {
+      "fecha_pedido": 1,
+      "cliente.nombre": 1,
+      "estado": 1
+    }
+  },
+  {
+    "$limit": 10
+  }
+])
+Estado: OK
+Muestras devueltas: 10
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe7efd65332569ad30fbd5"
+    },
+    "fecha_pedido": {
+      "$date": "2026-11-19T04:45:49.536Z"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "nombre": "Juan"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ebf"
+    },
+    "fecha_pedido": {
+      "$date": "2026-11-01T00:00:00Z"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "nombre": "Genaro"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec0"
+    },
+    "fecha_pedido": {
+      "$date": "2026-11-02T00:00:00Z"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "nombre": "Federico"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec1"
+    },
+    "fecha_pedido": {
+      "$date": "2026-11-03T00:00:00Z"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "nombre": "Horacio"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec2"
+    },
+    "fecha_pedido": {
+      "$date": "2026-11-04T00:00:00Z"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "nombre": "Dolores"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec3"
+    },
+    "fecha_pedido": {
+      "$date": "2026-11-05T00:00:00Z"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "nombre": "Rosalia"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec4"
+    },
+    "fecha_pedido": {
+      "$date": "2026-11-06T00:00:00Z"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "nombre": "Fabiola"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b4791500cc84126ec5"
+    },
+    "fecha_pedido": {
+      "$date": "2026-11-07T00:00:00Z"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "nombre": "Esther"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b4791500cc84126ec6"
+    },
+    "fecha_pedido": {
+      "$date": "2026-11-08T00:00:00Z"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "nombre": "Emilio"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b4791500cc84126ec7"
+    },
+    "fecha_pedido": {
+      "$date": "2026-11-09T00:00:00Z"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "nombre": "Guillermo"
+      }
+    ]
+  }
+]
+
+============================================================
+[LOOKUP 03] Pedidos con cantidad de coincidencias de cliente
+Coleccion: pedidos
+Consulta: db.pedidos.aggregate([
+  {
+    "$lookup": {
+      "from": "clientes",
+      "localField": "cliente_id",
+      "foreignField": "_id",
+      "as": "cliente"
+    }
+  },
+  {
+    "$project": {
+      "estado": 1,
+      "clientes_encontrados": {
+        "$size": "$cliente"
+      }
+    }
+  },
+  {
+    "$limit": 10
+  }
+])
+Estado: OK
+Muestras devueltas: 10
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe7efd65332569ad30fbd5"
+    },
+    "estado": "Pendiente",
+    "clientes_encontrados": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ebf"
+    },
+    "estado": "Pendiente",
+    "clientes_encontrados": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec0"
+    },
+    "estado": "Pendiente",
+    "clientes_encontrados": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec1"
+    },
+    "estado": "Pendiente",
+    "clientes_encontrados": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec2"
+    },
+    "estado": "Pendiente",
+    "clientes_encontrados": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec3"
+    },
+    "estado": "Pendiente",
+    "clientes_encontrados": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec4"
+    },
+    "estado": "Pendiente",
+    "clientes_encontrados": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b4791500cc84126ec5"
+    },
+    "estado": "Pendiente",
+    "clientes_encontrados": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b4791500cc84126ec6"
+    },
+    "estado": "Pendiente",
+    "clientes_encontrados": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b4791500cc84126ec7"
+    },
+    "estado": "Pendiente",
+    "clientes_encontrados": 1
+  }
+]
+
+============================================================
+[LOOKUP 04] Pedidos con cliente activo
+Coleccion: pedidos
+Consulta: db.pedidos.aggregate([
+  {
+    "$lookup": {
+      "from": "clientes",
+      "localField": "cliente_id",
+      "foreignField": "_id",
+      "as": "cliente"
+    }
+  },
+  {
+    "$project": {
+      "estado": 1,
+      "cliente.activo": 1
+    }
+  },
+  {
+    "$limit": 10
+  }
+])
+Estado: OK
+Muestras devueltas: 10
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe7efd65332569ad30fbd5"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "activo": true
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ebf"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "activo": true
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec0"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "activo": true
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec1"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "activo": true
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec2"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "activo": true
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec3"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "activo": true
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec4"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "activo": true
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b4791500cc84126ec5"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "activo": true
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b4791500cc84126ec6"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "activo": true
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b4791500cc84126ec7"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "activo": true
+      }
+    ]
+  }
+]
+
+============================================================
+[LOOKUP 05] Pedidos con ciudad del cliente
+Coleccion: pedidos
+Consulta: db.pedidos.aggregate([
+  {
+    "$lookup": {
+      "from": "clientes",
+      "localField": "cliente_id",
+      "foreignField": "_id",
+      "as": "cliente"
+    }
+  },
+  {
+    "$project": {
+      "estado": 1,
+      "cliente.direcciones.ciudad": 1
+    }
+  },
+  {
+    "$limit": 10
+  }
+])
+Estado: OK
+Muestras devueltas: 10
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe7efd65332569ad30fbd5"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "direcciones": [
+          {
+            "ciudad": "Guadalajara"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ebf"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "direcciones": [
+          {
+            "ciudad": "Guadalajara"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec0"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "direcciones": [
+          {
+            "ciudad": "Guadalajara"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec1"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "direcciones": [
+          {
+            "ciudad": "Guadalajara"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec2"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "direcciones": [
+          {
+            "ciudad": "Guadalajara"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec3"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "direcciones": [
+          {
+            "ciudad": "Guadalajara"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec4"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "direcciones": [
+          {
+            "ciudad": "Guadalajara"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b4791500cc84126ec5"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "direcciones": [
+          {
+            "ciudad": "Guadalajara"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b4791500cc84126ec6"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "direcciones": [
+          {
+            "ciudad": "Guadalajara"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b4791500cc84126ec7"
+    },
+    "estado": "Pendiente",
+    "cliente": [
+      {
+        "direcciones": [
+          {
+            "ciudad": "Guadalajara"
+          }
+        ]
+      }
+    ]
+  }
+]
+
+============================================================
+[LOOKUP 06] Pagos con pedido correspondiente
+Coleccion: pagos
+Consulta: db.pagos.aggregate([
+  {
+    "$lookup": {
+      "from": "pedidos",
+      "localField": "pedido_id",
+      "foreignField": "_id",
+      "as": "pedido"
+    }
+  },
+  {
+    "$project": {
+      "referencia": 1,
+      "monto": 1,
+      "pedido.estado": 1
+    }
+  },
+  {
+    "$limit": 10
+  }
+])
+Estado: OK
+Muestras devueltas: 10
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe81b6791500cc84126ed3"
+    },
+    "referencia": "SEED-PAGO-001",
+    "monto": {
+      "$numberDecimal": "15276.40"
+    },
+    "pedido": [
+      {
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b6791500cc84126ed4"
+    },
+    "referencia": "SEED-PAGO-002",
+    "monto": {
+      "$numberDecimal": "4558.00"
+    },
+    "pedido": [
+      {
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b6791500cc84126ed5"
+    },
+    "referencia": "SEED-PAGO-003",
+    "monto": {
+      "$numberDecimal": "4511.60"
+    },
+    "pedido": [
+      {
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b6791500cc84126ed6"
+    },
+    "referencia": "SEED-PAGO-004",
+    "monto": {
+      "$numberDecimal": "6066.00"
+    },
+    "pedido": [
+      {
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b7791500cc84126ed7"
+    },
+    "referencia": "SEED-PAGO-005",
+    "monto": {
+      "$numberDecimal": "4326.00"
+    },
+    "pedido": [
+      {
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b7791500cc84126ed8"
+    },
+    "referencia": "SEED-PAGO-006",
+    "monto": {
+      "$numberDecimal": "914.44"
+    },
+    "pedido": [
+      {
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b7791500cc84126ed9"
+    },
+    "referencia": "SEED-PAGO-007",
+    "monto": {
+      "$numberDecimal": "5776.00"
+    },
+    "pedido": [
+      {
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b7791500cc84126eda"
+    },
+    "referencia": "SEED-PAGO-008",
+    "monto": {
+      "$numberDecimal": "4370.08"
+    },
+    "pedido": [
+      {
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b8791500cc84126edb"
+    },
+    "referencia": "SEED-PAGO-009",
+    "monto": {
+      "$numberDecimal": "7052.00"
+    },
+    "pedido": [
+      {
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b8791500cc84126edc"
+    },
+    "referencia": "SEED-PAGO-010",
+    "monto": {
+      "$numberDecimal": "1542.00"
+    },
+    "pedido": [
+      {
+        "estado": "Pendiente"
+      }
+    ]
+  }
+]
+
+============================================================
+[LOOKUP 07] Pagos con total del pedido
+Coleccion: pagos
+Consulta: db.pagos.aggregate([
+  {
+    "$lookup": {
+      "from": "pedidos",
+      "localField": "pedido_id",
+      "foreignField": "_id",
+      "as": "pedido"
+    }
+  },
+  {
+    "$project": {
+      "referencia": 1,
+      "pedido.total": 1
+    }
+  },
+  {
+    "$limit": 10
+  }
+])
+Estado: OK
+Muestras devueltas: 10
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe81b6791500cc84126ed3"
+    },
+    "referencia": "SEED-PAGO-001",
+    "pedido": [
+      {
+        "total": {
+          "$numberDecimal": "15276.40"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b6791500cc84126ed4"
+    },
+    "referencia": "SEED-PAGO-002",
+    "pedido": [
+      {
+        "total": {
+          "$numberDecimal": "4558.00"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b6791500cc84126ed5"
+    },
+    "referencia": "SEED-PAGO-003",
+    "pedido": [
+      {
+        "total": {
+          "$numberDecimal": "4511.60"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b6791500cc84126ed6"
+    },
+    "referencia": "SEED-PAGO-004",
+    "pedido": [
+      {
+        "total": {
+          "$numberDecimal": "6066.00"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b7791500cc84126ed7"
+    },
+    "referencia": "SEED-PAGO-005",
+    "pedido": [
+      {
+        "total": {
+          "$numberDecimal": "4326.00"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b7791500cc84126ed8"
+    },
+    "referencia": "SEED-PAGO-006",
+    "pedido": [
+      {
+        "total": {
+          "$numberDecimal": "914.44"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b7791500cc84126ed9"
+    },
+    "referencia": "SEED-PAGO-007",
+    "pedido": [
+      {
+        "total": {
+          "$numberDecimal": "5776.00"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b7791500cc84126eda"
+    },
+    "referencia": "SEED-PAGO-008",
+    "pedido": [
+      {
+        "total": {
+          "$numberDecimal": "4370.08"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b8791500cc84126edb"
+    },
+    "referencia": "SEED-PAGO-009",
+    "pedido": [
+      {
+        "total": {
+          "$numberDecimal": "7052.00"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b8791500cc84126edc"
+    },
+    "referencia": "SEED-PAGO-010",
+    "pedido": [
+      {
+        "total": {
+          "$numberDecimal": "1542.00"
+        }
+      }
+    ]
+  }
+]
+
+============================================================
+[LOOKUP 08] Pagos con fecha del pedido
+Coleccion: pagos
+Consulta: db.pagos.aggregate([
+  {
+    "$lookup": {
+      "from": "pedidos",
+      "localField": "pedido_id",
+      "foreignField": "_id",
+      "as": "pedido"
+    }
+  },
+  {
+    "$project": {
+      "referencia": 1,
+      "fecha_pago": 1,
+      "pedido.fecha_pedido": 1
+    }
+  },
+  {
+    "$limit": 10
+  }
+])
+Estado: OK
+Muestras devueltas: 10
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe81b6791500cc84126ed3"
+    },
+    "referencia": "SEED-PAGO-001",
+    "fecha_pago": {
+      "$date": "2026-11-01T00:00:00Z"
+    },
+    "pedido": [
+      {
+        "fecha_pedido": {
+          "$date": "2026-11-01T00:00:00Z"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b6791500cc84126ed4"
+    },
+    "referencia": "SEED-PAGO-002",
+    "fecha_pago": {
+      "$date": "2026-11-02T00:00:00Z"
+    },
+    "pedido": [
+      {
+        "fecha_pedido": {
+          "$date": "2026-11-02T00:00:00Z"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b6791500cc84126ed5"
+    },
+    "referencia": "SEED-PAGO-003",
+    "fecha_pago": {
+      "$date": "2026-11-03T00:00:00Z"
+    },
+    "pedido": [
+      {
+        "fecha_pedido": {
+          "$date": "2026-11-03T00:00:00Z"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b6791500cc84126ed6"
+    },
+    "referencia": "SEED-PAGO-004",
+    "fecha_pago": {
+      "$date": "2026-11-04T00:00:00Z"
+    },
+    "pedido": [
+      {
+        "fecha_pedido": {
+          "$date": "2026-11-04T00:00:00Z"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b7791500cc84126ed7"
+    },
+    "referencia": "SEED-PAGO-005",
+    "fecha_pago": {
+      "$date": "2026-11-05T00:00:00Z"
+    },
+    "pedido": [
+      {
+        "fecha_pedido": {
+          "$date": "2026-11-05T00:00:00Z"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b7791500cc84126ed8"
+    },
+    "referencia": "SEED-PAGO-006",
+    "fecha_pago": {
+      "$date": "2026-11-06T00:00:00Z"
+    },
+    "pedido": [
+      {
+        "fecha_pedido": {
+          "$date": "2026-11-06T00:00:00Z"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b7791500cc84126ed9"
+    },
+    "referencia": "SEED-PAGO-007",
+    "fecha_pago": {
+      "$date": "2026-11-07T00:00:00Z"
+    },
+    "pedido": [
+      {
+        "fecha_pedido": {
+          "$date": "2026-11-07T00:00:00Z"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b7791500cc84126eda"
+    },
+    "referencia": "SEED-PAGO-008",
+    "fecha_pago": {
+      "$date": "2026-11-08T00:00:00Z"
+    },
+    "pedido": [
+      {
+        "fecha_pedido": {
+          "$date": "2026-11-08T00:00:00Z"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b8791500cc84126edb"
+    },
+    "referencia": "SEED-PAGO-009",
+    "fecha_pago": {
+      "$date": "2026-11-09T00:00:00Z"
+    },
+    "pedido": [
+      {
+        "fecha_pedido": {
+          "$date": "2026-11-09T00:00:00Z"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b8791500cc84126edc"
+    },
+    "referencia": "SEED-PAGO-010",
+    "fecha_pago": {
+      "$date": "2026-11-10T00:00:00Z"
+    },
+    "pedido": [
+      {
+        "fecha_pedido": {
+          "$date": "2026-11-10T00:00:00Z"
+        }
+      }
+    ]
+  }
+]
+
+============================================================
+[LOOKUP 09] Pagos con cantidad de pedidos coincidentes
+Coleccion: pagos
+Consulta: db.pagos.aggregate([
+  {
+    "$lookup": {
+      "from": "pedidos",
+      "localField": "pedido_id",
+      "foreignField": "_id",
+      "as": "pedido"
+    }
+  },
+  {
+    "$project": {
+      "referencia": 1,
+      "coincidencias": {
+        "$size": "$pedido"
+      }
+    }
+  },
+  {
+    "$limit": 10
+  }
+])
+Estado: OK
+Muestras devueltas: 10
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe81b6791500cc84126ed3"
+    },
+    "referencia": "SEED-PAGO-001",
+    "coincidencias": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b6791500cc84126ed4"
+    },
+    "referencia": "SEED-PAGO-002",
+    "coincidencias": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b6791500cc84126ed5"
+    },
+    "referencia": "SEED-PAGO-003",
+    "coincidencias": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b6791500cc84126ed6"
+    },
+    "referencia": "SEED-PAGO-004",
+    "coincidencias": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b7791500cc84126ed7"
+    },
+    "referencia": "SEED-PAGO-005",
+    "coincidencias": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b7791500cc84126ed8"
+    },
+    "referencia": "SEED-PAGO-006",
+    "coincidencias": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b7791500cc84126ed9"
+    },
+    "referencia": "SEED-PAGO-007",
+    "coincidencias": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b7791500cc84126eda"
+    },
+    "referencia": "SEED-PAGO-008",
+    "coincidencias": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b8791500cc84126edb"
+    },
+    "referencia": "SEED-PAGO-009",
+    "coincidencias": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b8791500cc84126edc"
+    },
+    "referencia": "SEED-PAGO-010",
+    "coincidencias": 1
+  }
+]
+
+============================================================
+[LOOKUP 10] Pagos filtrando estado de su pedido
+Coleccion: pagos
+Consulta: db.pagos.aggregate([
+  {
+    "$lookup": {
+      "from": "pedidos",
+      "localField": "pedido_id",
+      "foreignField": "_id",
+      "as": "pedido"
+    }
+  },
+  {
+    "$match": {
+      "pedido.0": {
+        "$exists": true
+      }
+    }
+  },
+  {
+    "$project": {
+      "referencia": 1,
+      "pedido.estado": 1
+    }
+  },
+  {
+    "$limit": 10
+  }
+])
+Estado: OK
+Muestras devueltas: 10
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe81b6791500cc84126ed3"
+    },
+    "referencia": "SEED-PAGO-001",
+    "pedido": [
+      {
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b6791500cc84126ed4"
+    },
+    "referencia": "SEED-PAGO-002",
+    "pedido": [
+      {
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b6791500cc84126ed5"
+    },
+    "referencia": "SEED-PAGO-003",
+    "pedido": [
+      {
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b6791500cc84126ed6"
+    },
+    "referencia": "SEED-PAGO-004",
+    "pedido": [
+      {
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b7791500cc84126ed7"
+    },
+    "referencia": "SEED-PAGO-005",
+    "pedido": [
+      {
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b7791500cc84126ed8"
+    },
+    "referencia": "SEED-PAGO-006",
+    "pedido": [
+      {
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b7791500cc84126ed9"
+    },
+    "referencia": "SEED-PAGO-007",
+    "pedido": [
+      {
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b7791500cc84126eda"
+    },
+    "referencia": "SEED-PAGO-008",
+    "pedido": [
+      {
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b8791500cc84126edb"
+    },
+    "referencia": "SEED-PAGO-009",
+    "pedido": [
+      {
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b8791500cc84126edc"
+    },
+    "referencia": "SEED-PAGO-010",
+    "pedido": [
+      {
+        "estado": "Pendiente"
+      }
+    ]
+  }
+]
+
+============================================================
+[LOOKUP 11] Inventario con su producto
+Coleccion: inventario
+Consulta: db.inventario.aggregate([
+  {
+    "$lookup": {
+      "from": "productos",
+      "localField": "producto_id",
+      "foreignField": "_id",
+      "as": "producto"
+    }
+  },
+  {
+    "$project": {
+      "almacen": 1,
+      "existencias": 1,
+      "producto.nombre": 1
+    }
+  },
+  {
+    "$limit": 10
+  }
+])
+Estado: OK
+Muestras devueltas: 10
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe81a9791500cc84126ea5"
+    },
+    "almacen": "Almacen Principal",
+    "existencias": 30,
+    "producto": [
+      {
+        "nombre": "Laptop Lenovo IdeaPad"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a9791500cc84126ea6"
+    },
+    "almacen": "Almacen Principal",
+    "existencias": 79,
+    "producto": [
+      {
+        "nombre": "Laptop Lenovo IdeaPad"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81aa791500cc84126ea7"
+    },
+    "almacen": "Almacen Principal",
+    "existencias": 97,
+    "producto": [
+      {
+        "nombre": "Mouse Logitech"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81aa791500cc84126ea8"
+    },
+    "almacen": "Almacen Principal",
+    "existencias": 43,
+    "producto": [
+      {
+        "nombre": "Teclado Mecanico"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81aa791500cc84126ea9"
+    },
+    "almacen": "Almacen Principal",
+    "existencias": 94,
+    "producto": [
+      {
+        "nombre": "Monitor Samsung 24"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81aa791500cc84126eaa"
+    },
+    "almacen": "Almacen Principal",
+    "existencias": 68,
+    "producto": [
+      {
+        "nombre": "Audifonos Bluetooth"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81ab791500cc84126eab"
+    },
+    "almacen": "Almacen Principal",
+    "existencias": 85,
+    "producto": [
+      {
+        "nombre": "Memoria USB 64GB"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81ab791500cc84126eac"
+    },
+    "almacen": "Almacen Principal",
+    "existencias": 77,
+    "producto": [
+      {
+        "nombre": "Disco SSD 1TB"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81ab791500cc84126ead"
+    },
+    "almacen": "Almacen Principal",
+    "existencias": 71,
+    "producto": [
+      {
+        "nombre": "Webcam Full HD"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81ab791500cc84126eae"
+    },
+    "almacen": "Almacen Principal",
+    "existencias": 15,
+    "producto": [
+      {
+        "nombre": "Bocina Bluetooth"
+      }
+    ]
+  }
+]
+
+============================================================
+[LOOKUP 12] Inventario con SKU de producto
+Coleccion: inventario
+Consulta: db.inventario.aggregate([
+  {
+    "$lookup": {
+      "from": "productos",
+      "localField": "producto_id",
+      "foreignField": "_id",
+      "as": "producto"
+    }
+  },
+  {
+    "$project": {
+      "almacen": 1,
+      "producto.sku": 1
+    }
+  },
+  {
+    "$limit": 10
+  }
+])
+Estado: OK
+Muestras devueltas: 10
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe81a9791500cc84126ea5"
+    },
+    "almacen": "Almacen Principal",
+    "producto": [
+      {
+        "sku": "LAP-001"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a9791500cc84126ea6"
+    },
+    "almacen": "Almacen Principal",
+    "producto": [
+      {
+        "sku": "PROD-001"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81aa791500cc84126ea7"
+    },
+    "almacen": "Almacen Principal",
+    "producto": [
+      {
+        "sku": "PROD-002"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81aa791500cc84126ea8"
+    },
+    "almacen": "Almacen Principal",
+    "producto": [
+      {
+        "sku": "PROD-003"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81aa791500cc84126ea9"
+    },
+    "almacen": "Almacen Principal",
+    "producto": [
+      {
+        "sku": "PROD-004"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81aa791500cc84126eaa"
+    },
+    "almacen": "Almacen Principal",
+    "producto": [
+      {
+        "sku": "PROD-005"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81ab791500cc84126eab"
+    },
+    "almacen": "Almacen Principal",
+    "producto": [
+      {
+        "sku": "PROD-006"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81ab791500cc84126eac"
+    },
+    "almacen": "Almacen Principal",
+    "producto": [
+      {
+        "sku": "PROD-007"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81ab791500cc84126ead"
+    },
+    "almacen": "Almacen Principal",
+    "producto": [
+      {
+        "sku": "PROD-008"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81ab791500cc84126eae"
+    },
+    "almacen": "Almacen Principal",
+    "producto": [
+      {
+        "sku": "PROD-009"
+      }
+    ]
+  }
+]
+
+============================================================
+[LOOKUP 13] Inventario con categoria de producto
+Coleccion: inventario
+Consulta: db.inventario.aggregate([
+  {
+    "$lookup": {
+      "from": "productos",
+      "localField": "producto_id",
+      "foreignField": "_id",
+      "as": "producto"
+    }
+  },
+  {
+    "$project": {
+      "existencias": 1,
+      "producto.categoria": 1
+    }
+  },
+  {
+    "$limit": 10
+  }
+])
+Estado: OK
+Muestras devueltas: 10
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe81a9791500cc84126ea5"
+    },
+    "existencias": 30,
+    "producto": [
+      {
+        "categoria": "Electronica"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a9791500cc84126ea6"
+    },
+    "existencias": 79,
+    "producto": [
+      {
+        "categoria": "Electronica"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81aa791500cc84126ea7"
+    },
+    "existencias": 97,
+    "producto": [
+      {
+        "categoria": "Electronica"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81aa791500cc84126ea8"
+    },
+    "existencias": 43,
+    "producto": [
+      {
+        "categoria": "Electronica"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81aa791500cc84126ea9"
+    },
+    "existencias": 94,
+    "producto": [
+      {
+        "categoria": "Electronica"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81aa791500cc84126eaa"
+    },
+    "existencias": 68,
+    "producto": [
+      {
+        "categoria": "Electronica"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81ab791500cc84126eab"
+    },
+    "existencias": 85,
+    "producto": [
+      {
+        "categoria": "Electronica"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81ab791500cc84126eac"
+    },
+    "existencias": 77,
+    "producto": [
+      {
+        "categoria": "Electronica"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81ab791500cc84126ead"
+    },
+    "existencias": 71,
+    "producto": [
+      {
+        "categoria": "Electronica"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81ab791500cc84126eae"
+    },
+    "existencias": 15,
+    "producto": [
+      {
+        "categoria": "Electronica"
+      }
+    ]
+  }
+]
+
+============================================================
+[LOOKUP 14] Inventario con precio de producto
+Coleccion: inventario
+Consulta: db.inventario.aggregate([
+  {
+    "$lookup": {
+      "from": "productos",
+      "localField": "producto_id",
+      "foreignField": "_id",
+      "as": "producto"
+    }
+  },
+  {
+    "$project": {
+      "existencias": 1,
+      "producto.precio": 1
+    }
+  },
+  {
+    "$limit": 10
+  }
+])
+Estado: OK
+Muestras devueltas: 10
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe81a9791500cc84126ea5"
+    },
+    "existencias": 30,
+    "producto": [
+      {
+        "precio": {
+          "$numberDecimal": "12500.00"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a9791500cc84126ea6"
+    },
+    "existencias": 79,
+    "producto": [
+      {
+        "precio": {
+          "$numberDecimal": "12500.00"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81aa791500cc84126ea7"
+    },
+    "existencias": 97,
+    "producto": [
+      {
+        "precio": {
+          "$numberDecimal": "450.00"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81aa791500cc84126ea8"
+    },
+    "existencias": 43,
+    "producto": [
+      {
+        "precio": {
+          "$numberDecimal": "1200.00"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81aa791500cc84126ea9"
+    },
+    "existencias": 94,
+    "producto": [
+      {
+        "precio": {
+          "$numberDecimal": "3200.00"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81aa791500cc84126eaa"
+    },
+    "existencias": 68,
+    "producto": [
+      {
+        "precio": {
+          "$numberDecimal": "850.00"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81ab791500cc84126eab"
+    },
+    "existencias": 85,
+    "producto": [
+      {
+        "precio": {
+          "$numberDecimal": "180.00"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81ab791500cc84126eac"
+    },
+    "existencias": 77,
+    "producto": [
+      {
+        "precio": {
+          "$numberDecimal": "1450.00"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81ab791500cc84126ead"
+    },
+    "existencias": 71,
+    "producto": [
+      {
+        "precio": {
+          "$numberDecimal": "680.00"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81ab791500cc84126eae"
+    },
+    "existencias": 15,
+    "producto": [
+      {
+        "precio": {
+          "$numberDecimal": "950.00"
+        }
+      }
+    ]
+  }
+]
+
+============================================================
+[LOOKUP 15] Inventario calculando disponibilidad
+Coleccion: inventario
+Consulta: db.inventario.aggregate([
+  {
+    "$lookup": {
+      "from": "productos",
+      "localField": "producto_id",
+      "foreignField": "_id",
+      "as": "producto"
+    }
+  },
+  {
+    "$project": {
+      "producto.nombre": 1,
+      "disponibles": {
+        "$subtract": [
+          "$existencias",
+          "$reservadas"
+        ]
+      }
+    }
+  },
+  {
+    "$limit": 10
+  }
+])
+Estado: OK
+Muestras devueltas: 10
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe81a9791500cc84126ea5"
+    },
+    "producto": [
+      {
+        "nombre": "Laptop Lenovo IdeaPad"
+      }
+    ],
+    "disponibles": 28
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a9791500cc84126ea6"
+    },
+    "producto": [
+      {
+        "nombre": "Laptop Lenovo IdeaPad"
+      }
+    ],
+    "disponibles": 75
+  },
+  {
+    "_id": {
+      "$oid": "6afe81aa791500cc84126ea7"
+    },
+    "producto": [
+      {
+        "nombre": "Mouse Logitech"
+      }
+    ],
+    "disponibles": 97
+  },
+  {
+    "_id": {
+      "$oid": "6afe81aa791500cc84126ea8"
+    },
+    "producto": [
+      {
+        "nombre": "Teclado Mecanico"
+      }
+    ],
+    "disponibles": 39
+  },
+  {
+    "_id": {
+      "$oid": "6afe81aa791500cc84126ea9"
+    },
+    "producto": [
+      {
+        "nombre": "Monitor Samsung 24"
+      }
+    ],
+    "disponibles": 90
+  },
+  {
+    "_id": {
+      "$oid": "6afe81aa791500cc84126eaa"
+    },
+    "producto": [
+      {
+        "nombre": "Audifonos Bluetooth"
+      }
+    ],
+    "disponibles": 64
+  },
+  {
+    "_id": {
+      "$oid": "6afe81ab791500cc84126eab"
+    },
+    "producto": [
+      {
+        "nombre": "Memoria USB 64GB"
+      }
+    ],
+    "disponibles": 80
+  },
+  {
+    "_id": {
+      "$oid": "6afe81ab791500cc84126eac"
+    },
+    "producto": [
+      {
+        "nombre": "Disco SSD 1TB"
+      }
+    ],
+    "disponibles": 73
+  },
+  {
+    "_id": {
+      "$oid": "6afe81ab791500cc84126ead"
+    },
+    "producto": [
+      {
+        "nombre": "Webcam Full HD"
+      }
+    ],
+    "disponibles": 70
+  },
+  {
+    "_id": {
+      "$oid": "6afe81ab791500cc84126eae"
+    },
+    "producto": [
+      {
+        "nombre": "Bocina Bluetooth"
+      }
+    ],
+    "disponibles": 11
+  }
+]
+
+============================================================
+[LOOKUP 16] Productos con inventario asociado
+Coleccion: productos
+Consulta: db.productos.aggregate([
+  {
+    "$lookup": {
+      "from": "inventario",
+      "localField": "_id",
+      "foreignField": "producto_id",
+      "as": "inventarios"
+    }
+  },
+  {
+    "$project": {
+      "sku": 1,
+      "nombre": 1,
+      "inventarios.almacen": 1,
+      "inventarios.existencias": 1
+    }
+  },
+  {
+    "$limit": 10
+  }
+])
+Estado: OK
+Muestras devueltas: 10
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe5cb37d936a0fb9b9742b"
+    },
+    "sku": "LAP-001",
+    "nombre": "Laptop Lenovo IdeaPad",
+    "inventarios": [
+      {
+        "almacen": "Almacen Principal",
+        "existencias": 30
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a5791500cc84126e8c"
+    },
+    "sku": "PROD-001",
+    "nombre": "Laptop Lenovo IdeaPad",
+    "inventarios": [
+      {
+        "almacen": "Almacen Principal",
+        "existencias": 79
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a5791500cc84126e8d"
+    },
+    "sku": "PROD-002",
+    "nombre": "Mouse Logitech",
+    "inventarios": [
+      {
+        "almacen": "Almacen Principal",
+        "existencias": 97
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e8e"
+    },
+    "sku": "PROD-003",
+    "nombre": "Teclado Mecanico",
+    "inventarios": [
+      {
+        "almacen": "Almacen Principal",
+        "existencias": 43
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e8f"
+    },
+    "sku": "PROD-004",
+    "nombre": "Monitor Samsung 24",
+    "inventarios": [
+      {
+        "almacen": "Almacen Principal",
+        "existencias": 94
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e90"
+    },
+    "sku": "PROD-005",
+    "nombre": "Audifonos Bluetooth",
+    "inventarios": [
+      {
+        "almacen": "Almacen Principal",
+        "existencias": 68
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e91"
+    },
+    "sku": "PROD-006",
+    "nombre": "Memoria USB 64GB",
+    "inventarios": [
+      {
+        "almacen": "Almacen Principal",
+        "existencias": 85
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e92"
+    },
+    "sku": "PROD-007",
+    "nombre": "Disco SSD 1TB",
+    "inventarios": [
+      {
+        "almacen": "Almacen Principal",
+        "existencias": 77
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e93"
+    },
+    "sku": "PROD-008",
+    "nombre": "Webcam Full HD",
+    "inventarios": [
+      {
+        "almacen": "Almacen Principal",
+        "existencias": 71
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e94"
+    },
+    "sku": "PROD-009",
+    "nombre": "Bocina Bluetooth",
+    "inventarios": [
+      {
+        "almacen": "Almacen Principal",
+        "existencias": 15
+      }
+    ]
+  }
+]
+
+============================================================
+[LOOKUP 17] Productos con cantidad de registros de inventario
+Coleccion: productos
+Consulta: db.productos.aggregate([
+  {
+    "$lookup": {
+      "from": "inventario",
+      "localField": "_id",
+      "foreignField": "producto_id",
+      "as": "inventarios"
+    }
+  },
+  {
+    "$project": {
+      "sku": 1,
+      "almacenes": {
+        "$size": "$inventarios"
+      }
+    }
+  },
+  {
+    "$limit": 10
+  }
+])
+Estado: OK
+Muestras devueltas: 10
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe5cb37d936a0fb9b9742b"
+    },
+    "sku": "LAP-001",
+    "almacenes": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a5791500cc84126e8c"
+    },
+    "sku": "PROD-001",
+    "almacenes": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a5791500cc84126e8d"
+    },
+    "sku": "PROD-002",
+    "almacenes": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e8e"
+    },
+    "sku": "PROD-003",
+    "almacenes": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e8f"
+    },
+    "sku": "PROD-004",
+    "almacenes": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e90"
+    },
+    "sku": "PROD-005",
+    "almacenes": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e91"
+    },
+    "sku": "PROD-006",
+    "almacenes": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e92"
+    },
+    "sku": "PROD-007",
+    "almacenes": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e93"
+    },
+    "sku": "PROD-008",
+    "almacenes": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a6791500cc84126e94"
+    },
+    "sku": "PROD-009",
+    "almacenes": 1
+  }
+]
+
+============================================================
+[LOOKUP 18] Clientes con pedidos asociados
+Coleccion: clientes
+Consulta: db.clientes.aggregate([
+  {
+    "$lookup": {
+      "from": "pedidos",
+      "localField": "_id",
+      "foreignField": "cliente_id",
+      "as": "pedidos"
+    }
+  },
+  {
+    "$project": {
+      "nombre": 1,
+      "apellidos": 1,
+      "pedidos.estado": 1
+    }
+  },
+  {
+    "$limit": 10
+  }
+])
+Estado: OK
+Muestras devueltas: 10
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe7c146a86fdb8ae8c92c6"
+    },
+    "nombre": "Juan",
+    "apellidos": "Perez Lopez",
+    "pedidos": [
+      {
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a2791500cc84126e78"
+    },
+    "nombre": "Genaro",
+    "apellidos": "Maya Sandoval",
+    "pedidos": [
+      {
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a2791500cc84126e79"
+    },
+    "nombre": "Federico",
+    "apellidos": "Rascón Alba",
+    "pedidos": [
+      {
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a2791500cc84126e7a"
+    },
+    "nombre": "Horacio",
+    "apellidos": "Vélez Mares",
+    "pedidos": [
+      {
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a3791500cc84126e7b"
+    },
+    "nombre": "Dolores",
+    "apellidos": "Valle Roque",
+    "pedidos": [
+      {
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a3791500cc84126e7c"
+    },
+    "nombre": "Rosalia",
+    "apellidos": "Reyes Rodarte",
+    "pedidos": [
+      {
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a3791500cc84126e7d"
+    },
+    "nombre": "Fabiola",
+    "apellidos": "Solorzano Saiz",
+    "pedidos": [
+      {
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a3791500cc84126e7e"
+    },
+    "nombre": "Esther",
+    "apellidos": "Elizondo Pizarro",
+    "pedidos": [
+      {
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a3791500cc84126e7f"
+    },
+    "nombre": "Emilio",
+    "apellidos": "Farías Gutiérrez",
+    "pedidos": [
+      {
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a3791500cc84126e80"
+    },
+    "nombre": "Guillermo",
+    "apellidos": "Zamora Santana",
+    "pedidos": [
+      {
+        "estado": "Pendiente"
+      }
+    ]
+  }
+]
+
+============================================================
+[LOOKUP 19] Clientes con cantidad de pedidos
+Coleccion: clientes
+Consulta: db.clientes.aggregate([
+  {
+    "$lookup": {
+      "from": "pedidos",
+      "localField": "_id",
+      "foreignField": "cliente_id",
+      "as": "pedidos"
+    }
+  },
+  {
+    "$project": {
+      "nombre": 1,
+      "cantidad_pedidos": {
+        "$size": "$pedidos"
+      }
+    }
+  },
+  {
+    "$limit": 10
+  }
+])
+Estado: OK
+Muestras devueltas: 10
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe7c146a86fdb8ae8c92c6"
+    },
+    "nombre": "Juan",
+    "cantidad_pedidos": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a2791500cc84126e78"
+    },
+    "nombre": "Genaro",
+    "cantidad_pedidos": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a2791500cc84126e79"
+    },
+    "nombre": "Federico",
+    "cantidad_pedidos": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a2791500cc84126e7a"
+    },
+    "nombre": "Horacio",
+    "cantidad_pedidos": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a3791500cc84126e7b"
+    },
+    "nombre": "Dolores",
+    "cantidad_pedidos": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a3791500cc84126e7c"
+    },
+    "nombre": "Rosalia",
+    "cantidad_pedidos": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a3791500cc84126e7d"
+    },
+    "nombre": "Fabiola",
+    "cantidad_pedidos": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a3791500cc84126e7e"
+    },
+    "nombre": "Esther",
+    "cantidad_pedidos": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a3791500cc84126e7f"
+    },
+    "nombre": "Emilio",
+    "cantidad_pedidos": 1
+  },
+  {
+    "_id": {
+      "$oid": "6afe81a3791500cc84126e80"
+    },
+    "nombre": "Guillermo",
+    "cantidad_pedidos": 1
+  }
+]
+
+============================================================
+[LOOKUP 20] Pedidos con pagos relacionados
+Coleccion: pedidos
+Consulta: db.pedidos.aggregate([
+  {
+    "$lookup": {
+      "from": "pagos",
+      "localField": "_id",
+      "foreignField": "pedido_id",
+      "as": "pagos"
+    }
+  },
+  {
+    "$project": {
+      "estado": 1,
+      "total": 1,
+      "pagos.estado": 1,
+      "pagos.referencia": 1
+    }
+  },
+  {
+    "$limit": 10
+  }
+])
+Estado: OK
+Muestras devueltas: 10
+Resultados: [
+  {
+    "_id": {
+      "$oid": "6afe7efd65332569ad30fbd5"
+    },
+    "total": {
+      "$numberDecimal": "12700.00"
+    },
+    "estado": "Pendiente",
+    "pagos": []
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ebf"
+    },
+    "total": {
+      "$numberDecimal": "15276.40"
+    },
+    "estado": "Pendiente",
+    "pagos": [
+      {
+        "referencia": "SEED-PAGO-001",
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec0"
+    },
+    "total": {
+      "$numberDecimal": "4558.00"
+    },
+    "estado": "Pendiente",
+    "pagos": [
+      {
+        "referencia": "SEED-PAGO-002",
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec1"
+    },
+    "total": {
+      "$numberDecimal": "4511.60"
+    },
+    "estado": "Pendiente",
+    "pagos": [
+      {
+        "referencia": "SEED-PAGO-003",
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec2"
+    },
+    "total": {
+      "$numberDecimal": "6066.00"
+    },
+    "estado": "Pendiente",
+    "pagos": [
+      {
+        "referencia": "SEED-PAGO-004",
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec3"
+    },
+    "total": {
+      "$numberDecimal": "4326.00"
+    },
+    "estado": "Pendiente",
+    "pagos": [
+      {
+        "referencia": "SEED-PAGO-005",
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b3791500cc84126ec4"
+    },
+    "total": {
+      "$numberDecimal": "914.44"
+    },
+    "estado": "Pendiente",
+    "pagos": [
+      {
+        "referencia": "SEED-PAGO-006",
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b4791500cc84126ec5"
+    },
+    "total": {
+      "$numberDecimal": "5776.00"
+    },
+    "estado": "Pendiente",
+    "pagos": [
+      {
+        "referencia": "SEED-PAGO-007",
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b4791500cc84126ec6"
+    },
+    "total": {
+      "$numberDecimal": "4370.08"
+    },
+    "estado": "Pendiente",
+    "pagos": [
+      {
+        "referencia": "SEED-PAGO-008",
+        "estado": "Pendiente"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6afe81b4791500cc84126ec7"
+    },
+    "total": {
+      "$numberDecimal": "7052.00"
+    },
+    "estado": "Pendiente",
+    "pagos": [
+      {
+        "referencia": "SEED-PAGO-009",
+        "estado": "Pendiente"
+      }
+    ]
+  }
+]
+
+TOTAL LOOKUP: 20; ERRORES: 0; CONSULTAS CON MUESTRAS: 20

@@ -1,0 +1,36 @@
+use ecommerce_nosql
+
+db.getName()
+
+show collections
+
+db.getCollectionInfos({ name: "clientes" })
+
+db.getCollectionInfos().map(c => ({
+  coleccion: c.name,
+  tieneValidador: !!c.options?.validator?.$jsonSchema
+}))
+
+db.clientes.countDocuments({})
+
+db.clientes.find(
+  {},
+  {
+    nombre: 1,
+    correo_hash: 1,
+    correo_cifrado: 1,
+    telefono_cifrado: 1,
+    _id: 0
+  }
+)
+
+[
+  "clientes",
+  "productos",
+  "pedidos",
+  "pagos",
+  "inventario",
+  "auditoria"
+].forEach(nombre => {
+  print(nombre + ": " + db.getCollection(nombre).countDocuments({}));
+});

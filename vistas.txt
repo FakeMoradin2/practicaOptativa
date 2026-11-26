@@ -1,0 +1,103 @@
+// ENTREGA 3 — 5 VISTAS: CREACION SI FALTAN Y VERIFICACION
+// Ejecutar en mongosh: load("/ruta/06_solo_vistas_y_evidencias.txt")
+// NO borra colecciones, vistas, indices ni documentos.
+// Si una vista ya existe, solamente la consulta; NO la modifica.
+(function () {
+  const base = db.getSiblingDB("ecommerce_nosql");
+  const vistas = [
+    {
+      nombre: "vista_productos_activos", origen: "productos",
+      pipeline: [
+        { $match: { activo: true } },
+        { $project: { _id: 1, sku: 1, nombre: 1, categoria: 1, precio: 1, moneda: 1 } }
+      ]
+    },
+    {
+      nombre: "vista_inventario_disponible", origen: "inventario",
+      pipeline: [
+        { $lookup: { from: "productos", localField: "producto_id", foreignField: "_id", as: "producto" } },
+        { $unwind: { path: "$producto", preserveNullAndEmptyArrays: true } },
+        { $project: {
+          _id: 0, producto_id: 1, sku: "$producto.sku", nombre: "$producto.nombre",
+          almacen: 1, existencias: 1, reservadas: 1, stock_minimo: 1,
+          disponibles: { $subtract: ["$existencias", "$reservadas"] }
+        } }
+      ]
+    },
+    {
+      nombre: "vista_resumen_pedidos", origen: "pedidos",
+      pipeline: [
+        { $project: {
+          _id: 1, cliente_id: 1, fecha_pedido: 1, estado: 1,
+          cantidad_renglones: { $size: { $ifNull: ["$productos", []] } },
+          subtotal: 1, impuestos: 1, costo_envio: 1, total: 1,
+          estado_envio: "$envio.estado"
+        } }
+      ]
+    },
+    {
+      nombre: "vista_pagos_pedidos", origen: "pagos",
+      pipeline: [
+        { $lookup: { from: "pedidos", localField: "pedido_id", foreignField: "_id", as: "pedido" } },
+        { $unwind: { path: "$pedido", preserveNullAndEmptyArrays: true } },
+        { $project: {
+          _id: 1, pedido_id: 1, referencia: 1, metodo: 1, monto: 1,
+          moneda: 1, estado_pago: "$estado", fecha_pago: 1,
+          estado_pedido: "$pedido.estado"
+        } }
+      ]
+    },
+    {
+      nombre: "vista_movimientos_auditoria", origen: "auditoria",
+      pipeline: [
+        { $project: {
+          _id: 1, usuario: 1, accion: 1, coleccion: 1,
+          documento_id: 1, fecha: 1
+        } }
+      ]
+    }
+  ];
+
+  print("\n========== ENTREGA 3: VERIFICACION DE 5 VISTAS ==========");
+  print("Base de datos: " + base.getName());
+  let verificadas = 0;
+  let conDatos = 0;
+  for (let i = 0; i < vistas.length; i++) {
+    const v = vistas[i];
+    print("\n========== VISTA " + (i + 1) + "/5: " + v.nombre + " ==========");
+    try {
+      const origenInfo = base.getCollectionInfos({ name: v.origen })[0];
+      if (!origenInfo || origenInfo.type !== "collection") {
+        print("ERROR: no existe la coleccion fuente " + v.origen);
+        continue;
+      }
+      let info = base.getCollectionInfos({ name: v.nombre })[0];
+      if (!info) {
+        base.createView(v.nombre, v.origen, v.pipeline);
+        print("CREADA: " + v.nombre);
+        info = base.getCollectionInfos({ name: v.nombre })[0];
+      } else {
+        print("YA EXISTE: no se modifica");
+      }
+      if (!info || info.type !== "view") {
+        print("ERROR: el nombre no corresponde a una vista");
+        continue;
+      }
+      print("Tipo: " + info.type + " | Coleccion de origen: " + info.options.viewOn);
+      const total = base.getCollection(v.nombre).countDocuments({});
+      const ejemplo = base.getCollection(v.nombre).findOne({});
+      print("Documentos visibles: " + total);
+      print("Resultado de consulta (1 documento):");
+      print(ejemplo === null ? "SIN DOCUMENTOS" : EJSON.stringify(ejemplo, null, 2));
+      verificadas++;
+      if (total > 0 && ejemplo !== null) conDatos++;
+      print("RESULTADO: OK");
+    } catch (err) {
+      print("ERROR: " + err.message);
+    }
+  }
+  print("\n========== RESUMEN ==========");
+  print("VISTAS VERIFICADAS Y CONSULTADAS: " + verificadas + "/5");
+  print("VISTAS CON DOCUMENTOS: " + conDatos + "/5");
+  print("========== FIN ==========");
+})();

@@ -1,0 +1,54 @@
+use ecommerce_nosql
+
+db.productos.insertOne({
+  sku: "LAP-001",
+  nombre: "Laptop Lenovo IdeaPad",
+  descripcion: "Laptop de 16 GB RAM y 512 GB SSD",
+  categoria: "Electronica",
+  precio: NumberDecimal("12500.00"),
+  moneda: "MXN",
+  proveedor: {
+    nombre: "Distribuidora Tecnologia MX",
+    correo: "ventas@ejemplo.com"
+  },
+  caracteristicas: {
+    ram: "16 GB",
+    almacenamiento: "512 GB SSD"
+  },
+  activo: true
+})
+
+db.productos.insertOne({
+  sku: "LAP-002",
+  nombre: "Laptop HP",
+  categoria: "Electronica",
+  precio: "10000",
+  moneda: "MXN",
+  proveedor: {
+    nombre: "Distribuidora Tecnologia MX",
+    correo: "ventas@ejemplo.com"
+  },
+  activo: true
+})
+
+db.productos.insertOne({
+  sku: "LAP-003",
+  nombre: "Laptop Dell",
+  categoria: "Electronica",
+  moneda: "MXN",
+  proveedor: {
+    nombre: "Distribuidora Tecnologia MX",
+    correo: "ventas@ejemplo.com"
+  },
+  activo: true
+})
+
+db.productos.updateOne(
+  { sku: "LAP-001" },
+  { $set: { precio: NumberDecimal("-500.00") } }
+)
+
+db.productos.find(
+  {},
+  { _id: 0, sku: 1, nombre: 1, precio: 1 }
+)
